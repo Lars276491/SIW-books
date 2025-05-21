@@ -1,0 +1,94 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #fefefe;
+    font-family: Arial, sans-serif;
+}
+
+
+header{
+    
+    background-color: #ffdec7;
+    color: #493129;
+    padding: 5em;
+    text-align: center;
+
+}
+
+.profilo{
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#efa3a0;
+    color: #493129;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+
+}
+.profilo:hover{
+    background-color: #8b597b;
+    color: #ffdec7;
+    cursor: pointer;
+}
+
+section{
+    display: flex;
+    background-color: #fefefe;
+    margin: 40px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.libro{
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#ffdec7;
+    color: #493129;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+}
+.autore{
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#ffdec7;
+    color: #493129;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+}
+#libro{
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#efa3a0;
+    color: #493129;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+
+}
+#autore{
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color:#efa3a0;
+    color: #493129;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+
+}
+
+#libro:hover{
+    background-color: #8b597b;
+    color: #ffdec7;
+    cursor: pointer;
+}
+#autore:hover{
+    background-color: #8b597b;
+    color: #ffdec7;
+    cursor: pointer;
+}
