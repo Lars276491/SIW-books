@@ -25,7 +25,7 @@ public class Book {
     @Max(2025)
     private Integer year; //anno di pubblicazione
 
-    private String urlImage;
+    private String image;
 
     @ManyToMany
     private List<Author> authors;
@@ -54,12 +54,12 @@ public class Book {
         this.year = year;
     }
 
-    public String getUrlImage() {
-        return urlImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+    public void setImage(String urlImage) {
+        this.image = urlImage;
     }
 
     public List<Author> getAuthors() {

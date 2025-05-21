@@ -26,9 +26,9 @@ public class Author {
     private String surname;
 
     @NotNull
-    private LocalDate dateOfBirth;
+    private LocalDate birth;
 
-    private LocalDate dateOfDeath;
+    private LocalDate death;
 
     @ManyToMany(mappedBy = "authors")
     private List<Book> books;
@@ -57,20 +57,20 @@ public class Author {
         this.surname = surname;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
+    public LocalDate getBirth() {
+        return birth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setBirth(LocalDate dateOfBirth) {
+        this.birth = dateOfBirth;
     }
 
-    public LocalDate getDateOfDeath() {
-        return dateOfDeath;
+    public LocalDate getDeath() {
+        return death;
     }
 
-    public void setDateOfDeath(LocalDate dateOfDeath) {
-        this.dateOfDeath = dateOfDeath;
+    public void setDeath(LocalDate dateOfDeath) {
+        this.death = dateOfDeath;
     }
 
     public List<Book> getBooks() {
@@ -87,8 +87,8 @@ public class Author {
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-        result = prime * result + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
-        result = prime * result + ((dateOfDeath == null) ? 0 : dateOfDeath.hashCode());
+        result = prime * result + ((birth == null) ? 0 : birth.hashCode());
+        result = prime * result + ((death == null) ? 0 : death.hashCode());
         return result;
     }
 
@@ -111,15 +111,15 @@ public class Author {
                 return false;
         } else if (!surname.equals(other.surname))
             return false;
-        if (dateOfBirth == null) {
-            if (other.dateOfBirth != null)
+        if (birth == null) {
+            if (other.birth != null)
                 return false;
-        } else if (!dateOfBirth.equals(other.dateOfBirth))
+        } else if (!birth.equals(other.birth))
             return false;
-        if (dateOfDeath == null) {
-            if (other.dateOfDeath != null)
+        if (death == null) {
+            if (other.death != null)
                 return false;
-        } else if (!dateOfDeath.equals(other.dateOfDeath))
+        } else if (!death.equals(other.death))
             return false;
         return true;
     }

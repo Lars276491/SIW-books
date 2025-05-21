@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.BookService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @Controller
@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}")
-    public String getBook(@RequestParam("id") Long id, Model model) {
+    public String getBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", this.bookService.getBookById(id));
         return "book.html";
     }
