@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/main/resources/static/css/style_index.css">
+    <title>Index</title>
+</head>
+<body>
+   <nav>
+        <form action="/search" method="get">
+            <input type="text" name="query" placeholder="Cerca libri...">
+            <button type="submit">Cerca</button>
+        </form>
+        <a href="/login">Login</a>
+        <a href="/register">SignUp</a>
+   </nav>
+   <div th:if="${books.isEmpty()}">
+        Non ci sono libri disponibili </div>
+    <div class="libro" th:each="book : ${books}">
+        <a th:href="@{'/book' + '/' + '${book.id}'}"
+           th:text="${book.title} + ' (' + ${book.year} + ')'">Book Title (100)</a>
+        <img width="10%" th:src="${book.image}" alt="Book Cover" class="cover"/>
+    </div>
+    <!--<div th:if="${authors.isEmpty()}">
+        Non ci sono autori disponibili </div>
+    <div class="author" th:each="author : ${authors}">
+        <a th:href="@{ '/author' + '/' + '${author.id}'}"
+           th:text="${author.name} + ' ' + ${author.surname} + ' (' + ${author.birth} + '-' + ${author.death} ')'">Pippo Pluto (200 - 300)</a>
+    </div>-->
+</body>
+</html>
