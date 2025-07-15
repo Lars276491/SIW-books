@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Area Admin - SIW Books</title>
+    <link rel="stylesheet" href="/css/style_admin.css" />
+</head>
+<body>
+    <header>
+        <h1>🔒 Benvenuto, Admin!</h1>
+        <nav>
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/libri">Gestisci Libri</a></li>
+                <li><a href="/admin/autori">Gestisci Autori</a></li>
+                <li><a href="/admin/utenti">Gestisci Utenti</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Panoramica</h2>
+            <p>Da qui puoi gestire libri, autori e utenti registrati.</p>
+            <!-- Puoi inserire qui statistiche, grafici o messaggi -->
+        </section>
+
+        <section>
+            <h2>Azioni rapide</h2>
+            <button onclick="location.href='/admin/libri/new'">Aggiungi Nuovo Libro</button>
+            <button onclick="location.href='/admin/autori/new'">Aggiungi Nuovo Autore</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 SIW Books - Area Amministrazione</p>
+    </footer>
+</body>
+</html>

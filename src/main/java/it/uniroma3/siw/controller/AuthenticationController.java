@@ -27,32 +27,40 @@ public class AuthenticationController {
     @Autowired
 	private UserService userService;
 	
-	@GetMapping(value = "/register") 
-	public String showRegisterForm (Model model) {
+	
+	@GetMapping("/register") 
+	public String showRegisterForm(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			return "redirect:/";  // utente già autenticato, va alla home
+		}
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
-		return "formRegisterUser";
+		return "register";
 	}
 	
-	@GetMapping(value = "/login") 
-	public String showLoginForm (Model model) {
-		return "formLogin";
+	@GetMapping("/login") 
+	public String showLoginForm(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (!(auth instanceof AnonymousAuthenticationToken)) {
+			return "redirect:/";  // utente già autenticato, va alla home
+		}
+		return "login";
 	}
 
 	@GetMapping(value = "/") 
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
-	        return "index.html";
-		}
-		else {		
+			return "index";
+		} else {
 			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-				return "admin/indexAdmin.html";
+				return "admin/indexAdmin";
 			}
 		}
-        return "index.html";
+		return "index";
 	}
 		
     @GetMapping(value = "/success")
@@ -61,15 +69,15 @@ public class AuthenticationController {
     	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
     	if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-            return "admin/indexAdmin.html";
+            return "admin/indexAdmin";
         }
-        return "index.html";
+        return "index";
     }
 
 	@PostMapping(value = { "/register" })
-    public String registerUser(@Valid @ModelAttribute("user") User user,
+    public String registerUser(@Valid @ModelAttribute User user,
                  BindingResult userBindingResult, @Valid
-                 @ModelAttribute("credentials") Credentials credentials,
+                 @ModelAttribute Credentials credentials,
                  BindingResult credentialsBindingResult,
                  Model model) {
 
@@ -81,6 +89,6 @@ public class AuthenticationController {
             model.addAttribute("user", user);
             return "registrationSuccessful";
         }
-        return "registerUser";
+        return "register";
     }
 }

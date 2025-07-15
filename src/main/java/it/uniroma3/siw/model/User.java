@@ -9,7 +9,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +33,11 @@ public class User {
     private LocalDate birth;
 
 	private String imagePath;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "credentials_id")
+	private Credentials credentials;
+
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Recensione> recensioni;
@@ -89,6 +96,13 @@ public class User {
 	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Credentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(Credentials credentials) {
+		this.credentials = credentials;
 	}
 
 	@Override

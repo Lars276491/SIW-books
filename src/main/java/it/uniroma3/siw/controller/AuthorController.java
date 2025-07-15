@@ -25,26 +25,26 @@ public class AuthorController {
     @GetMapping("/author")
     public String showAuthors(Model model) {
         model.addAttribute("authors", authorService.findAll());
-        return "authors.html";
+        return "authors";
     }
 
     @GetMapping("/author/{id}")
-    public String getAuthor(@PathVariable("id") Long id, Model model) {
+    public String getAuthor(@PathVariable Long id, Model model) {
         model.addAttribute("author", this.authorService.findById(id));
-        return "author.html";
+        return "author";
     }
 
     @GetMapping("/formNewAuthor")
     public String getFormNewAuthor(Model model) {
         model.addAttribute("athor", new Author());
-        return "formNewAuthor.html";
+        return "formNewAuthor";
     }
 
     @PostMapping("/author")
-    public String newAuthor(@Valid @ModelAttribute("author") Author author, BindingResult bindingResult, Model model) {
+    public String newAuthor(@Valid @ModelAttribute Author author, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-            return "formNewAuthor.html";
+            return "formNewAuthor";
         }else{
             this.authorService.save(author);
             model.addAttribute("author", author);

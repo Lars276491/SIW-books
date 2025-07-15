@@ -2,7 +2,6 @@ package it.uniroma3.siw.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +28,8 @@ public class BookRestController {
 	private AuthorService authorService;
 	
 	@PutMapping(value="/admin/rest/books/{bookId}/authors/{AuthorId}/")
-	public Book setAuthorToBook(@PathVariable("bookId") Long bookId,
-										@PathVariable("authorId") Long authorId) {
+	public Book setAuthorToBook(@PathVariable Long bookId,
+										@PathVariable Long authorId) {
 		
 		Author author = this.authorService.findById(authorId);
 		Book book = this.bookService.findById(bookId);
@@ -47,7 +46,7 @@ public class BookRestController {
 	}
 
 	@GetMapping("/rest/books/{id}")
-	public Book getBook(@PathVariable("id") Long id) {
+	public Book getBook(@PathVariable Long id) {
 		return this.bookService.findById(id);
 	}
 
@@ -60,7 +59,7 @@ public class BookRestController {
 	}
 	
 	@DeleteMapping(value="/admin/rest/books/{bookId}/authors/{authorId}")
-	public Book removeAuthorFromBook(@PathVariable("bookId") Long bookId, @PathVariable("authorId") Long authorId) {
+	public Book removeAuthorFromBook(@PathVariable Long bookId, @PathVariable Long authorId) {
 		Book book = this.bookService.findById(bookId);
 		Author author = this.authorService.findById(authorId);
 		List<Author> authors = book.getAuthors();

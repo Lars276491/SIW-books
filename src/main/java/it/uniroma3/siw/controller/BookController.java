@@ -31,26 +31,26 @@ public class BookController {
     @GetMapping(value="/admin/formNewBook")
     public String getFormNewBook(Model model) {
         model.addAttribute("book", new Book());
-        return "admin/formNewBook.html";
+        return "admin/formNewBook";
     }
 
     @GetMapping("/book")
     public String showBooks(Model model) {
         model.addAttribute("books", bookService.findAll());
-        return "books.html";
+        return "books";
     }
 
     @GetMapping("/book/{id}")
-    public String getBook(@PathVariable("id") Long id, Model model) {
+    public String getBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", this.bookService.findById(id));
-        return "book.html";
+        return "book";
     }
 
     @PostMapping("/book")
-    public String newBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
+    public String newBook(@Valid @ModelAttribute Book book,BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-            return "formNewBook.html";
+            return "formNewBook";
         }
         else{
             this.bookService.save(book);
@@ -60,38 +60,38 @@ public class BookController {
     }
     @PostMapping("/admin/indexBook")
     public String indexMovie(){
-        return "admin/indexBook.html";
+        return "admin/indexBook";
     }
 
     @GetMapping("/admin/aggiornaBook")
     public String homeAggiornaBook(Model model) {
         model.addAttribute("book", this.bookService.findAll());
-        return "admin/aggiornaBook.html";
+        return "admin/aggiornaBook";
     }
 
     @GetMapping("/admin/deleteBook/{id}")
-    public String deleteBook(@PathVariable("id") Long id, Model model) {
+    public String deleteBook(@PathVariable Long id, Model model) {
         this.bookService.deleteById(id);
         return "redirect:/aggiornaBook";
     }
     
     @GetMapping(value="/admin/modificaBook/{id}")
-    public String modificaBook(@PathVariable("id") Long id, Model model) {
+    public String modificaBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", this.bookService.findById(id));
-        return "admin/modificaBook.html";
+        return "admin/modificaBook";
     }
 
     @GetMapping("/admin/modificaAutori/{id}")
-    public String modificaAutori(@PathVariable("id") Long id, Model model) {
+    public String modificaAutori(@PathVariable Long id, Model model) {
         List<Author> authors = this.authorsToAdd(id);
         model.addAttribute("book", this.bookService.findById(id));
         model.addAttribute("autoriLibro", authors);
-        return "admin/autorePerLibro.html";
+        return "admin/autorePerLibro";
     }
     
 
     @GetMapping("/admin/AutorePerLibro/{authorId}/{bookid}")
-    public String aggiungiAutorePerLibro(@PathVariable("actorId") Long authorId,@PathVariable("bookId") Long bookId, Model model) {
+    public String aggiungiAutorePerLibro(@PathVariable("actorId") Long authorId,@PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
         List<Author> authors = book.getAuthors();
@@ -101,7 +101,7 @@ public class BookController {
         List<Author> authorsToAdd = authorsToAdd(bookId);
         model.addAttribute("book", book);
         model.addAttribute("autoriLibro", authorsToAdd);
-        return "admin/autorePerLibro.html";
+        return "admin/autorePerLibro";
     }
 
     private List<Author> authorsToAdd(Long bookId) {
@@ -114,7 +114,7 @@ public class BookController {
     }
 
     @GetMapping("/admin/deleteAutorePerLibro/{authorId}/{bookId}")
-    public String deleteAutorePerLibro(@PathVariable("authorId") Long authorId, @PathVariable("bookId") Long bookId, Model model) {
+    public String deleteAutorePerLibro(@PathVariable Long authorId, @PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
         List<Author> authors = book.getAuthors();
@@ -124,7 +124,7 @@ public class BookController {
         List<Author> authorsToAdd = authorsToAdd(bookId);
         model.addAttribute("book", book);
         model.addAttribute("autoriLibro", authorsToAdd);
-        return "admin/autorePerLibro.html";
+        return "admin/autorePerLibro";
     }
 
     

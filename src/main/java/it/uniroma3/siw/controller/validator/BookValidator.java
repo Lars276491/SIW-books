@@ -14,7 +14,7 @@ public class BookValidator implements Validator {
 	private BookService bookService;
 
 	@Override
-	public void validate(Object o, Errors errors) {
+	public void validate(@org.springframework.lang.NonNull Object o, @org.springframework.lang.NonNull Errors errors) {
 		Book book = (Book)o;
 		if (book.getTitle()!=null && book.getYear()!=null 
 				&& bookService.existsByTitleAndYear(book.getTitle(), book.getYear())) {
@@ -22,7 +22,7 @@ public class BookValidator implements Validator {
 		}
 	}
 	@Override
-	public boolean supports(Class<?> aClass) {
+	public boolean supports(@org.springframework.lang.NonNull Class<?> aClass) {
 		return Book.class.equals(aClass);
 	}
 }

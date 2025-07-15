@@ -36,15 +36,15 @@
             </div>
             <div class="input-group">
                 <label for="username">Username:</label>
-                <span><input type="text" id="username" placeholder="username" required th:field="*{credenziali.username}" /></span>
-                <span th:if="${#fields.hasErrors('credenziali.username')}" class="error-message">
-                    <p th:errors="*{credenziali.username}">Username non valido</p></span>
+                <span><input type="text" id="username" placeholder="username" required th:field="*{credentials.username}" /></span>
+                <span th:if="${#fields.hasErrors('credentials.username')}" class="error-message">
+                    <p th:errors="*{credentials.username}">Username non valido</p></span>
             </div>
             <div class="input-group">
                 <label for="password">Password:</label>
-                <span><input type="password" id="password" placeholder="password" required th:field="*{credenziali.password}" /></span>
-                <span th:if="${#fields.hasErrors('credenziali.password')}" class="error-message">
-                    <p th:errors="*{credenziali.password}">Password non valida</p></span>
+                <span><input type="password" id="password" placeholder="password" required th:field="*{credentials.password}" /></span>
+                <span th:if="${#fields.hasErrors('credentials.password')}" class="error-message">
+                    <p th:errors="*{credentials.password}">Password non valida</p></span>
             </div>
             <button type="submit">Registrati</button>
         </form>
