@@ -24,13 +24,13 @@ public class AuthorController {
 
     @GetMapping("/author")
     public String showAuthors(Model model) {
-        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("authors", authorService.findAll());
         return "authors.html";
     }
 
     @GetMapping("/author/{id}")
     public String getAuthor(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("author", this.authorService.getAuthorById(id));
+        model.addAttribute("author", this.authorService.findById(id));
         return "author.html";
     }
 

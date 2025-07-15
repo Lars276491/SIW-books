@@ -1,5 +1,6 @@
 package it.uniroma3.siw.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +17,25 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Iterable<Book> getAllBooks() {
+    public Iterable<Book> findAll() {
         return bookRepository.findAll();
     }
 
-    public Book getBookById(Long id) {
+    public Book findById(Long id) {
         return bookRepository.findById(id).get();
     }    
 
-    public void deleteById(Long id) {
-        bookRepository.deleteById(id);
-    }
-
+    
     public void addAuthorToBook(Long bookId, Long authorId) {
         bookRepository.addAuthorToBook(bookId, authorId);
+    }
+    public boolean existsByTitleAndYear(String title, Integer year) {
+        return bookRepository.existsByTitleAndYear(title, year);
+    }
+    public Iterable<Book> findByYear(int year) {
+        return bookRepository.findByYear(year);
+    }
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
     }
 }

@@ -16,12 +16,16 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
-    public Iterable<Author> getAllAuthors() {
+    public Iterable<Author> findAll() {
         return authorRepository.findAll();
     }
 
-    public Author getAuthorById(Long id) {
+    public Author findById(Long id) {
         return authorRepository.findById(id).get();
+    }
+    
+    public Iterable<Author> findAuthorsNotInBook(Long bookId) {
+        return authorRepository.findAuthorsNotInBook(bookId);
     }
 
 }
