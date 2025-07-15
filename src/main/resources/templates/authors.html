@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_register.css">
+    <title>Autori</title>
+</head>
+<body>
+    <h1>Autori</h1>      
+    <div class="author-list">
+        <ul>
+            <li th:each="author : ${authors}">
+                <a th:href="@{'/author' + '/'+ ${author.id}}" th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="no-author" th:if="${authors.isEmpty()}">
+        <p>Nessun autore trovato.</p>
+    </div>
+</html>

@@ -3,30 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/main/resources/static/css/style_index.css">
+    <link rel="stylesheet" href="/css/style_index.css">
     <title>Index</title>
 </head>
 <body>
-   <nav>
-        <form action="/search" method="get">
-            <input type="text" name="query" placeholder="Cerca libri...">
-            <button type="submit">Cerca</button>
-        </form>
-        <a href="/login">Login</a>
-        <a href="/register">SignUp</a>
-   </nav>
-   <div th:if="${books.isEmpty()}">
-        Non ci sono libri disponibili </div>
-    <div class="libro" th:each="book : ${books}">
-        <a th:href="@{'/book' + '/' + '${book.id}'}"
-           th:text="${book.title} + ' (' + ${book.year} + ')'">Book Title (100)</a>
-        <img width="10%" th:src="${book.image}" alt="Book Cover" class="cover"/>
+   <header>
+    <h1>📚 Benvenuto in SIW Books!</h1>
+    <h3>Registrati o Accedi per scoprire il nostro mondo letterario</h3>
+    <button id="register" onclick="location.href='/register'">Registrati</button>
+    <button id="login" onclick="location.href='/login'">Accedi</button>
+  </header>
+
+  <section>
+    <div class="row">
+      <h3>📖 Scopri la nostra collezione di libri</h3>
+      <button id="libri" class="action-btn" onclick="location.href='/libri'">Libri</button>
     </div>
-    <!--<div th:if="${authors.isEmpty()}">
-        Non ci sono autori disponibili </div>
-    <div class="author" th:each="author : ${authors}">
-        <a th:href="@{ '/author' + '/' + '${author.id}'}"
-           th:text="${author.name} + ' ' + ${author.surname} + ' (' + ${author.birth} + '-' + ${author.death} ')'">Pippo Pluto (200 - 300)</a>
-    </div>-->
+    <div class="row">
+      <h3>✍️ Conosci i nostri autori</h3>
+      <button id="autori" class="action-btn" onclick="location.href='/autori'">Autori</button>
+    </div>
+  </section>
 </body>
 </html>

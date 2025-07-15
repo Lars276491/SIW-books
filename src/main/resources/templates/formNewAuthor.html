@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_register.css">
+    <title>New Author</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Aggiungi un Nuovo Autore</h1>
+        <form th:action="@{/author}" method="POST" th:object="${author}">
+            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+            <div class="input-group">
+                <label>Nome:</label>
+                <span><input type="text" id="name" placeholder="name" required th:field="*{name}" /></span>
+                <span th:if="${#fields.hasErrors('name')}" class="error-message">
+                    <p th:errors="*{name}">Nome non valido</p>
+                </span>
+            </div>
+            <div class="input-group">
+                <label>Cognome:</label>
+                <span><input type="text" id="surname" placeholder="surname" required th:field="*{surname}" /></span>
+                <span th:if="${#fields.hasErrors('surname')}" class="error-message">
+                    <p th:errors="*{surname}">Cognome non valido</p>
+                </span>
+            </div>
+             <div class="input-group">
+                <label>Anno di nascita:</label>
+                <span><input type="date" id="birth" placeholder="birth" required th:field="*{birth}" /></span>
+                <span th:if="${#fields.hasErrors('birth')}" class="error-message">
+                    <p th:errors="*{birth}">Cognome non valido</p>
+                </span>
+            </div>
+             <div class="input-group">
+                <label>Anno della morte:</label>
+                <span><input type="date" id="death" placeholder="death" required th:field="*{death}" /></span>
+                <span th:if="${#fields.hasErrors('death')}" class="error-message">
+                    <p th:errors="*{death}">Cognome non valido</p>
+                </span>
+            </div>
+        </form>
+        <button type="submit">Aggiungi Libro</button>
+        <button type="button" onclick="location.href='/libri'">Annulla</button>
+    </div>
+</body>
+</html>
