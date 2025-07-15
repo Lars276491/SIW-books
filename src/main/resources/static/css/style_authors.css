@@ -1,0 +1,91 @@
+:root {
+  --primary: #8d4c4a;
+  --bg: #f5f1ee;
+  --text: #333;
+  --card-bg: #fff;
+  --border: #ddd;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  color: var(--primary);
+}
+
+.new-author-btn {
+  text-decoration: none;
+  background-color: var(--primary);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.new-author-btn:hover {
+  background-color: #723b39;
+}
+
+.author-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+.author-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 200px;
+  text-align: center;
+  transition: box-shadow 0.3s;
+}
+
+.author-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.author-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.author-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.author-card h2 {
+  font-size: 1.1rem;
+  color: var(--primary);
+}
+
+#no-author {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #999;
+}

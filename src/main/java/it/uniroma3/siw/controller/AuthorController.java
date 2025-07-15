@@ -36,7 +36,7 @@ public class AuthorController {
 
     @GetMapping("/formNewAuthor")
     public String getFormNewAuthor(Model model) {
-        model.addAttribute("athor", new Author());
+        model.addAttribute("author", new Author());
         return "formNewAuthor";
     }
 

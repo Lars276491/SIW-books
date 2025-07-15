@@ -28,6 +28,9 @@ public class Author {
     @NotNull
     private LocalDate birth;
 
+    private String image;
+
+    
     private LocalDate death;
 
     @ManyToMany(mappedBy = "authors")
@@ -80,6 +83,15 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 
     @Override
     public int hashCode() {

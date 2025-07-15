@@ -9,11 +9,12 @@
 <body>
     <h1>Autori</h1>      
     <div class="author-list">
-        <ul>
-            <li th:each="author : ${authors}">
-                <a th:href="@{'/author' + '/'+ ${author.id}}" th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</a>
-            </li>
-        </ul>
+        <div class="author-card" th:each="author : ${authors}">
+            <a th:href="@{'/author' + '/'+ ${author.id}}">
+                <img th:src="@{${author.image}}" alt="Foto di [[${book.name}]] [[${author.surname}]]" class="author-image">
+                <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
+            </a>
+        </div>
     </div>
 
     <div id="no-author" th:if="${authors.isEmpty()}">

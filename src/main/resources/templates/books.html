@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/style_books.css">
 </head>
 <body>
     <div class="header">
@@ -13,9 +13,12 @@
     </div>
 
     <div class="book-list">
-        <ul>
-            <li th:each="book : ${books}">
-                <a th:href="@{'/book' + '/'+ ${book.id}}" th:text="${book.title} + ' (' + ${book.year} + ')'">Book (2000)</a>
+        <div class="book-card" th:each="book : ${books}">
+            <a th:href="@{'/book' + '/'+ ${book.id}}">
+                <img th:src="@{${book.image}}" alt="Copertina di [[${book.title}]]" class="book-image">
+                <h2 th:text="${book.title}">Titolo del libro</h2>
+                <p th:text="${book.year}">Anno di pubblicazione</p>
+            </a>
             </li>
         </ul>
     </div>
