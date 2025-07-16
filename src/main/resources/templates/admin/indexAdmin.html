@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Area Admin - SIW Books</title>
+    <link rel="stylesheet" href="/css/style_admin.css" />
+</head>
+<body>
+    <header>
+        <h1 sec:authorize="hasAuthority('ADMIN')">🔒 Benvenuto, Admin!</h1>
+        <nav>
+            <ul>
+                <li><a href="/admin/book">Gestisci Libri</a></li>
+                <li><a href="/admin/author">Gestisci Autori</a></li>
+                <li><a href="/admin/user">Gestisci Utenti</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <footer>
+        <p>© 2025 SIW Books - Area Amministrazione</p>
+    </footer>
+</body>
+</html>

@@ -9,7 +9,11 @@
 <body>
     <div class="container">
         <h1>Aggiungi un Nuovo Libro</h1>
-        <form th:action="@{/book}" method="POST" th:object="${book}">
+        <form th:action="${book.id} != null ? @{/admin/book/{id}(id=${book.id})} : @{/admin/book}"
+            method="POST"
+            th:object="${book}"
+            enctype="multipart/form-data">
+
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
             <div class="input-group">
                 <label>Titolo:</label>
@@ -29,9 +33,10 @@
                 <label>Immagini:</label>
                 <input type="file" name="bookImages" accept="image/*" multiple />
             </div>
+            <button type="submit">Aggiungi Libro</button>
         </form>
-        <button type="submit">Aggiungi Libro</button>
-        <button type="button" onclick="location.href='/libri'">Annulla</button>
+        
+        <button type="button" onclick="location.href='/adminBooks'">Annulla</button>
     </div>
 </body>
 </html>

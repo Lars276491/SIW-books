@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book</title>
+    <title>adminBook</title>
     <link rel="stylesheet" href="/style_book.css">
 </head>
 <body>
     <div class="header">
         <h1>Book</h1>
-        <a href="/book">Ritorna alla lista dei libri</a>
+        <a href="/admin/book">Ritorna alla lista dei libri</a>
+        <span th:if="${book}">
+            <a th:href="@{/admin/modificaBook/{id}(id=${book.id})}">Modifica Libro</a>
+        </span>
+        <form th:action="@{/admin/deleteBook/{id}(id=${book.id})}" method="get" style="display:inline;">
+            <button type="submit">Elimina</button>
+        </form>
+
         
     </div>
     

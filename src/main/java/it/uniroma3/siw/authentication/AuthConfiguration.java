@@ -62,10 +62,28 @@ import javax.sql.DataSource;
                 // LOGIN: qui definiamo il login
                 .formLogin(form -> form
                     .loginPage("/login")
+                    .successHandler((request, response, authentication) -> {
+                        // Se è admin -> vai su /indexAdmin
+                        var authorities = authentication.getAuthorities();
+                        boolean isAdmin = authorities.stream()
+                                .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+                        if (isAdmin) {
+                            response.sendRedirect("/indexAdmin");
+                        } else {
+                            response.sendRedirect("/indexUser"); // o un'altra pagina per utenti normali
+                        }
+                    })
+                    .failureUrl("/login?error=true")
+                    .permitAll()
+                )
+
+
+                /*.formLogin(form -> form
+                    .loginPage("/login")
                     .permitAll()
                     .defaultSuccessUrl("/success", true)
                     .failureUrl("/login?error=true")
-                )
+                )*/
                 // LOGOUT: qui definiamo il logout
                 .logout(logout -> logout
                     // il logout è attivato con una richiesta GET a "/logout"
