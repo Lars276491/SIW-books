@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,7 @@ import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 
 @Controller
-//@RequestMapping("/admin")
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -28,44 +29,40 @@ public class AdminController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("/indexAdmin")
-    public String adminHome() {
-        return "admin/indexAdmin";  // Thymeleaf template: src/main/resources/templates/admin/indexAdmin.html
-    }
-
-    //metodi per book
-    /********************/
-     @GetMapping("/admin/formNewBook")
+    /***********************************************************************/
+    /**********************METODI PER BOOK**********************************/
+    /***********************************************************************/
+     @GetMapping("/formNewBook")
     public String getFormNewBook(Model model) {
         model.addAttribute("book", new Book());
         return "admin/formNewBook";
     }
 
-    @GetMapping("/admin/book")
+    @GetMapping("/book")
     public String showAdminBooks(Model model){
         model.addAttribute("books", bookService.findAll());
         return "admin/adminBooks";
     }
 
-    @GetMapping("/admin/aggiornaBook")
+    @GetMapping("/aggiornaBook")
     public String homeAggiornaBook(Model model) {
         model.addAttribute("book", this.bookService.findAll());
         return "admin/aggiornaBook";
     }
 
-    @GetMapping("/admin/deleteBook/{id}")
+    @GetMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable Long id, Model model) {
         this.bookService.deleteById(id);
         return "redirect:/admin/book";
     }
 
-    @GetMapping(value="/admin/modificaBook/{id}")
+    @GetMapping("/modificaBook/{id}")
     public String modificaBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", this.bookService.findById(id));
         return "admin/modificaBook";
     }
 
-    @GetMapping("/admin/modificaAutori/{id}")
+    @GetMapping("/modificaAutori/{id}")
     public String modificaAutori(@PathVariable Long id, Model model) {
         List<Author> authors = this.authorsToAdd(id);
         model.addAttribute("book", this.bookService.findById(id));
@@ -73,7 +70,7 @@ public class AdminController {
         return "admin/autorePerLibro";
     }
     
-    @GetMapping("/admin/AutorePerLibro/{authorId}/{bookId}")
+    @GetMapping("/AutorePerLibro/{authorId}/{bookId}")
     public String aggiungiAutorePerLibro(@PathVariable("authorId") Long authorId,@PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
@@ -96,7 +93,7 @@ public class AdminController {
         return authors;
     }
 
-    @GetMapping("/admin/deleteAutorePerLibro/{authorId}/{bookId}")
+    @GetMapping("/deleteAutorePerLibro/{authorId}/{bookId}")
     public String deleteAutorePerLibro(@PathVariable Long authorId, @PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
@@ -111,7 +108,7 @@ public class AdminController {
     }
 
    
-    @PostMapping("/admin/book/{id}")
+    @PostMapping("/book/{id}")
     public String updateBook(@PathVariable Long id,
                             @ModelAttribute("book") Book book,
                             @RequestParam("bookImages") MultipartFile[] files,
@@ -129,7 +126,7 @@ public class AdminController {
         this.bookService.save(book);
         return "redirect:/admin/book";
     }
-    @PostMapping("/admin/book")
+    @PostMapping("/book")
     public String addBook(@ModelAttribute("book") Book book,
                         @RequestParam("bookImages") MultipartFile[] files,
                         BindingResult result,
@@ -144,34 +141,34 @@ public class AdminController {
         return "redirect:/admin/book";
     }
 
-    @GetMapping("/admin/book/{id}")
+    @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", this.bookService.findById(id));
         return "admin/adminBook";
     }
 
-
-     //metodi per author
-     /********************/
-    @GetMapping("/admin/formNewAuthor")
+    /***********************************************************************/
+    /**********************METODI PER AUTHOR********************************/
+    /***********************************************************************/
+    @GetMapping("/formNewAuthor")
     public String getFormNewAuthor(Model model) {
         model.addAttribute("author", new Author());
         return "admin/formNewAuthor";
     }
 
-    @GetMapping("/admin/author")
+    @GetMapping("/author")
     public String showAuthors(Model model) {
         model.addAttribute("authors", authorService.findAll());
         return "admin/adminAuthors";
     }
 
-    @GetMapping("/admin/author/{id}")
+    @GetMapping("/author/{id}")
     public String getAuthor(@PathVariable Long id, Model model) {
         model.addAttribute("author", this.authorService.findById(id));
         return "admin/adminAuthor";
     }
 
-    @PostMapping("/admin/author")
+    @PostMapping("/author")
     public String addAuthor(@ModelAttribute("author") Author author,
                         @RequestParam("authorImages") MultipartFile[] files,
                         BindingResult result,
@@ -186,7 +183,7 @@ public class AdminController {
         return "redirect:/admin/author";
     }
 
-    @PostMapping("/admin/author/{id}")
+    @PostMapping("/author/{id}")
     public String updateAuthor(@PathVariable Long id,
                             @ModelAttribute("author") Author author,
                             @RequestParam("authorImages") MultipartFile[] files,
@@ -205,13 +202,13 @@ public class AdminController {
         return "redirect:/admin/author";
     }
 
-    @GetMapping("/admin/deleteAuthor/{id}")
+    @GetMapping("/deleteAuthor/{id}")
     public String deleteAuthor(@PathVariable Long id, Model model) {
         this.authorService.deleteById(id);
         return "redirect:/admin/author";
     }
 
-    @GetMapping(value="/admin/modificaAuthor/{id}")
+    @GetMapping("/modificaAuthor/{id}")
     public String modificaAuthor(@PathVariable Long id, Model model) {
         model.addAttribute("author", this.authorService.findById(id));
         return "admin/modificaAuthor";

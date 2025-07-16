@@ -91,4 +91,9 @@ public class AuthenticationController {
         }
         return "register";
     }
+
+	@GetMapping("/indexAdmin")
+    public String adminHome() {
+        return "admin/indexAdmin";  // Thymeleaf template: src/main/resources/templates/admin/indexAdmin.html
+    }
 }
