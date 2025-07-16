@@ -165,6 +165,58 @@ public class AdminController {
         return "admin/adminAuthors";
     }
 
+    @GetMapping("/admin/author/{id}")
+    public String getAuthor(@PathVariable Long id, Model model) {
+        model.addAttribute("author", this.authorService.findById(id));
+        return "admin/adminAuthor";
+    }
+
+    @PostMapping("/admin/author")
+    public String addAuthor(@ModelAttribute("author") Author author,
+                        @RequestParam("authorImages") MultipartFile[] files,
+                        BindingResult result,
+                        Model model) {
+        if (result.hasErrors()) {
+            return "admin/formNewAuthor";
+        }
+
+        // gestione immagini (se necessario) ...
+
+        this.authorService.save(author);
+        return "redirect:/admin/author";
+    }
+
+    @PostMapping("/admin/author/{id}")
+    public String updateAuthor(@PathVariable Long id,
+                            @ModelAttribute("author") Author author,
+                            @RequestParam("authorImages") MultipartFile[] files,
+                            BindingResult result,
+                            Model model) {
+        if (result.hasErrors()) {
+            return "admin/modificaAuthor";
+        }
+
+        // Opzionale: setta l'ID per sicurezza
+        author.setId(id);
+
+        // gestione immagini qui...
+
+        this.authorService.save(author);
+        return "redirect:/admin/author";
+    }
+
+    @GetMapping("/admin/deleteAuthor/{id}")
+    public String deleteAuthor(@PathVariable Long id, Model model) {
+        this.authorService.deleteById(id);
+        return "redirect:/admin/author";
+    }
+
+    @GetMapping(value="/admin/modificaAuthor/{id}")
+    public String modificaAuthor(@PathVariable Long id, Model model) {
+        model.addAttribute("author", this.authorService.findById(id));
+        return "admin/modificaAuthor";
+    }
+
 
 
 }

@@ -16,8 +16,6 @@
         <form th:action="@{/admin/deleteBook/{id}(id=${book.id})}" method="get" style="display:inline;">
             <button type="submit">Elimina</button>
         </form>
-
-        
     </div>
     
     <div class="book" th:if="${book}">

@@ -7,6 +7,16 @@
     <title>Autore</title>
 </head>
 <body>
+    <div class="header">
+        <h1>Author</h1>
+        <a href="/admin/author">Ritorna alla lista degli autori</a>
+        <span th:if="${author}">
+            <a th:href="@{/admin/modificaAuthor/{id}(id=${author.id})}">Modifica Autore</a>
+        </span>
+        <form th:action="@{/admin/deleteAuthor/{id}(id=${author.id})}" method="get" style="display:inline;">
+            <button type="submit">Elimina</button>
+        </form>
+    </div>
     <div th:if="${author}">
         <h1 th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</h1>
         <p>Anno di nascita: <span th:text="'(' + ${author.birth} + ')'">01/01/2000</span></p>

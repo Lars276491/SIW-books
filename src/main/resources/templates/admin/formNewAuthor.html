@@ -9,7 +9,10 @@
 <body>
     <div class="container">
         <h1>Aggiungi un Nuovo Autore</h1>
-        <form th:action="@{/author}" method="POST" th:object="${author}">
+        <form th:action="${author.id} != null ? @{/admin/author/{id}(id=${author.id})} : @{/admin/author}"
+            method="POST"
+            th:object="${author}"
+            enctype="multipart/form-data">
             <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
             <div class="input-group">
                 <label>Nome:</label>
@@ -39,9 +42,16 @@
                     <p th:errors="*{death}">Cognome non valido</p>
                 </span>
             </div>
+            <!-- Immagini -->
+            <div class="input-group">
+                <label for="authorImages">Immagini:</label>
+                <input type="file" id="authorImages" name="authorImages" accept="image/*" multiple />
+            </div>
+
+            <button type="submit">Aggiungi Autore</button>
         </form>
-        <button type="submit">Aggiungi Libro</button>
-        <button type="button" onclick="location.href='/libri'">Annulla</button>
+        
+        <button type="button" onclick="location.href='/adminAuthors'">Annulla</button>
     </div>
 </body>
 </html>

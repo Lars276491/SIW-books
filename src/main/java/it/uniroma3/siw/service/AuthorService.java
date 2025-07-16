@@ -27,5 +27,8 @@ public class AuthorService {
     public Iterable<Author> findAuthorsNotInBook(Long bookId) {
         return authorRepository.findAuthorsNotInBook(bookId);
     }
+    public void deleteById(Long id) {
+        authorRepository.deleteById(id);
+    }
 
 }

@@ -3,34 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book</title>
-    <link rel="stylesheet" href="/style_book.css">
+    <link rel="stylesheet" href="/css/style_authors.css">
+    <title>Autori</title>
 </head>
 <body>
     <div class="header">
-        <h1>Book</h1>
-        <a href="/book">Ritorna alla lista dei libri</a>
-        <span th:if="${book}">
-        <a th:href="@{/admin/modificaBook/{id}(id=${book.id})}">Modifica Libro</a>
-        </span>
-        <form th:action="@{/admin/deleteBook/{id}(id=${book.id})}" method="get" style="display:inline;">
-        <button type="submit">Elimina</button>
-</form>
-        
-    </div>
-    
-    <div class="book" th:if="${book}">
-        <h2 th:text="${book.title}">Book Title</h2>
-        <p><strong>Year:</strong> <span th:text="${book.year}">2000</span></p>
-        <p><strong>Immagine:</strong></p>
-        <span th:if="${book.image}">
-            <img th:src="${book.image}" alt="Book Image" class="book-image">
-        </span>
+        <h1>Authors</h1>
+        <a th:href="@{/admin/formNewAuthor}">Aggiungi un nuovo autore</a>
+    </form>
+    </div>   
+    <div class="author-list">
+        <div class="author-card" th:each="author : ${authors}">
+            <a th:href="@{'/admin/author' + '/'+ ${author.id}}">
+                <img th:src="@{${author.image}}" alt="Foto di [[${book.name}]] [[${author.surname}]]" class="author-image">
+                <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
+            </a>
+        </div>
     </div>
 
-    <div th:unless="${book}">
-        <p>Book not found.</p>
+    <div id="no-author" th:if="${authors.isEmpty()}">
+        <p>Nessun autore trovato.</p>
     </div>
-
-</body>
 </html>
