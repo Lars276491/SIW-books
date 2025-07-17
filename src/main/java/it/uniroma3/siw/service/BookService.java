@@ -1,6 +1,8 @@
 package it.uniroma3.siw.service;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,8 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book findById(Long id) {
-        return bookRepository.findById(id).get();
+    public Optional<Book> findById(Long id) {
+        return bookRepository.findById(id);
     }    
 
     

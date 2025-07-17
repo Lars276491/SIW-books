@@ -1,12 +1,13 @@
 package it.uniroma3.siw.controller;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import it.uniroma3.siw.controller.validator.BookValidator;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.ReviewService;
@@ -24,8 +25,6 @@ public class BookController {
 
     @Autowired BookService bookService;
     @Autowired AuthorService authorService;
-    @Autowired BookValidator bookValidator;
-    
     @Autowired ReviewService reviewService;
    
 
@@ -37,10 +36,11 @@ public class BookController {
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
-        Book book = bookService.findById(id);
-        if (book == null) {
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (!optionalBook.isPresent()) {
             return "redirect:/book"; // o una pagina 404
         }
+        Book book = optionalBook.get();
         model.addAttribute("book", book);
         model.addAttribute("reviews", reviewService.findByBook(book)); 
         return "book";

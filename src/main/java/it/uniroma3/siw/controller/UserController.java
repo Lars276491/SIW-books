@@ -3,6 +3,8 @@ package it.uniroma3.siw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +12,6 @@ import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewService;
-import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 
@@ -50,10 +51,12 @@ public class UserController {
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
-        Book book = bookService.findById(id);
-        if (book == null) {
-            return "redirect:/book"; // o una pagina 404
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "redirect:/user/book"; // o pagina 404
         }
+        Book book = optionalBook.get();
         model.addAttribute("book", book);
         model.addAttribute("reviews", reviewService.findByBook(book));
         return "user/userBook";
@@ -61,10 +64,12 @@ public class UserController {
 
     @GetMapping("/book/{id}/addReview")
     public String showReviewForm(@PathVariable Long id, Model model) {
-        Book book = bookService.findById(id);
-        if (book == null) {
-            return "user/userBooks"; 
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "redirect:/user/book"; // o pagina 404
         }
+        Book book = optionalBook.get();
         model.addAttribute("book", book);
         model.addAttribute("review", new Review());
         return "user/newFormReview";  // template Thymeleaf per inserire recensione
@@ -77,11 +82,12 @@ public class UserController {
                             BindingResult result,
                             Principal principal,
                             Model model) {
-
-        Book book = bookService.findById(id);
-        if (book == null) {
-            return "user/userBooks";
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "user/userBooks"; // o pagina 404
         }
+        Book book = optionalBook.get();
 
         if (result.hasErrors()) {
             model.addAttribute("book", book);
@@ -101,6 +107,14 @@ public class UserController {
 
         review.setBook(book);
         review.setUser(loggedUser);
+        // Verifica se esiste già una recensione dello stesso utente per lo stesso libro
+        Review existingReview = reviewService.findByUserAndBook(loggedUser, book);
+        if (existingReview != null) {
+            model.addAttribute("book", book);
+            model.addAttribute("review", review);
+            model.addAttribute("errorMessage", "Hai già inserito una recensione per questo libro.");
+            return "user/newFormReview";
+        }
 
         reviewService.save(review);
 

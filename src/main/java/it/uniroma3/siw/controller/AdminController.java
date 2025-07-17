@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,7 +74,7 @@ public class AdminController {
         return "admin/autorePerLibro";
     }
     
-    @GetMapping("/AutorePerLibro/{authorId}/{bookId}")
+    /*@GetMapping("/AutorePerLibro/{authorId}/{bookId}")
     public String aggiungiAutorePerLibro(@PathVariable("authorId") Long authorId,@PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
@@ -85,7 +86,7 @@ public class AdminController {
         model.addAttribute("book", book);
         model.addAttribute("autoriLibro", authorsToAdd);
         return "admin/autorePerLibro";
-    }
+    }*/
 
     private List<Author> authorsToAdd(Long bookId) {
         List<Author> authors = new ArrayList<>();
@@ -96,7 +97,7 @@ public class AdminController {
         return authors;
     }
 
-    @GetMapping("/deleteAutorePerLibro/{authorId}/{bookId}")
+   /* @GetMapping("/deleteAutorePerLibro/{authorId}/{bookId}")
     public String deleteAutorePerLibro(@PathVariable Long authorId, @PathVariable Long bookId, Model model) {
         Book book = this.bookService.findById(bookId);
         Author author = this.authorService.findById(authorId);
@@ -108,7 +109,7 @@ public class AdminController {
         model.addAttribute("book", book);
         model.addAttribute("autoriLibro", authorsToAdd);
         return "admin/autorePerLibro";
-    }
+    }*/
 
    
     @PostMapping("/book/{id}")
@@ -146,10 +147,12 @@ public class AdminController {
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
-        Book book = bookService.findById(id);
-        if (book == null) {
-            return "redirect:/book"; // o una pagina 404
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "redirect:/admin/book"; // o pagina 404
         }
+        Book book = optionalBook.get();
         model.addAttribute("book", book);
         model.addAttribute("reviews", reviewService.findByBook(book));
         return "admin/adminBook";

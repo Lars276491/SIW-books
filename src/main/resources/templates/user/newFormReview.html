@@ -8,6 +8,7 @@
 <body>
 
     <h1>Nuova Recensione per: <span th:text="${book.title}">Titolo Libro</span></h1>
+    <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red"></p>
 
     <form th:action="@{'/user/book/' + ${book.id} + '/addReview'}" method="post" th:object="${review}">
         <div>
