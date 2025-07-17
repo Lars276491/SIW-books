@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +24,9 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-    public Review findById(Long id) {
-        return reviewRepository.findById(id).orElse(null);
-    }
+    public Optional<Review> findById(Long id) {
+        return reviewRepository.findById(id);
+    }   
 
     public void deleteById(Long id) {
         reviewRepository.deleteById(id);
@@ -35,6 +37,6 @@ public class ReviewService {
     }
 
     public Review findByUserAndBook(User user, Book book) {
-    return reviewRepository.findByUserAndBook(user, book);
-}
+        return reviewRepository.findByUserAndBook(user, book);
+    }
 }

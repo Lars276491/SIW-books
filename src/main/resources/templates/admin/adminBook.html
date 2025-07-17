@@ -37,6 +37,7 @@
         <p><strong>Voto:</strong> <span th:text="${review.rating}">5</span>/5</p>
         <p th:text="${review.text}">Testo della recensione</p>
         <p><em>Utente:</em> <span th:text="${review.user.name}">Mario Rossi</span></p>
+        <a th:href="@{'/admin/deleteReview/' + ${review.id}}" class="btn btn-danger">Elimina Recensione</a>
     </div>
     </div>
 

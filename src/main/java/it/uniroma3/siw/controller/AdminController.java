@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.ReviewService;
@@ -56,14 +57,26 @@ public class AdminController {
 
     @GetMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable Long id, Model model) {
+        Optional<Book> optionalBook = this.bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "redirect:/admin/book";
+        }
         this.bookService.deleteById(id);
         return "redirect:/admin/book";
     }
 
     @GetMapping("/modificaBook/{id}")
     public String modificaBook(@PathVariable Long id, Model model) {
-        model.addAttribute("book", this.bookService.findById(id));
+        Optional<Book> optionalBook = this.bookService.findById(id);
+        if (!optionalBook.isPresent()) {
+            model.addAttribute("errorMessage", "Libro non trovato.");
+            return "redirect:/admin/book";
+        }
+        model.addAttribute("book", optionalBook.get());
         return "admin/modificaBook";
+       // model.addAttribute("book", this.bookService.findById(id));
+       // return "admin/modificaBook";
     }
 
     @GetMapping("/modificaAutori/{id}")
@@ -156,6 +169,22 @@ public class AdminController {
         model.addAttribute("book", book);
         model.addAttribute("reviews", reviewService.findByBook(book));
         return "admin/adminBook";
+    }
+
+    @GetMapping("/deleteReview/{id}")
+    public String deleteReview(@PathVariable Long id, Model model) {
+        Optional<Review> optionalReview = reviewService.findById(id);
+
+        if (!optionalReview.isPresent()) {
+            model.addAttribute("errorMessage", "Recensione non trovata.");
+            return "redirect:/admin/book";
+        }
+
+        Review review = optionalReview.get();
+        Long bookId = review.getBook().getId(); // utile per redirect alla pagina del libro
+
+        reviewService.deleteById(id);
+        return "redirect:/admin/book/" + bookId;
     }
 
     /***********************************************************************/
