@@ -56,4 +56,18 @@ public class UserService {
             result.add(user);
         return result;
     }
+
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
+    }
+
+    public User findById(Long id) {
+        return this.userRepository.findById(id).get();
+    }
+
+    @Transactional
+    public User findByUsername(String username) {
+        return userRepository.findByCredentialsUsername(username);
+    }
+
 }

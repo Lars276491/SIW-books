@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="/css/style_books.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Books</h1>
+    </div>
+    <div class="book-list">
+        <div class="book-card" th:each="book : ${books}">
+            <a th:href="@{'/user/book' + '/'+ ${book.id}}">
+                <img th:src="@{${book.image}}" alt="Copertina di [[${book.title}]]" class="book-image">
+                <h2 th:text="${book.title}">Titolo del libro</h2>
+                <p th:text="${book.year}">Anno di pubblicazione</p>
+            </a>
+        </div>
+    </div>
+
+    <div id="no-book" th:if="${books.isEmpty()}">
+        <p>Nessun libro trovato.</p>
+    </div>
+</html>

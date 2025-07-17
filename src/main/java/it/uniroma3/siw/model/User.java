@@ -40,15 +40,15 @@ public class User {
 
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Recensione> recensioni;
+    private List<Review> review;
 
 
-    public List<Recensione> getRecensioni() {
-		return recensioni;
+    public List<Review> getReview() {
+		return review;
 	}
 
-	public void setRecensioni(List<Recensione> recensioni) {
-		this.recensioni = recensioni;
+	public void setReview(List<Review> review) {
+		this.review = review;
 	}
 
 	public String getImagePath() {

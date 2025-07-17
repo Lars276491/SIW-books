@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.model.Credentials.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -56,6 +57,9 @@ import javax.sql.DataSource;
                     .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                     .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
                     .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                    //gli user possono accedere alle pagine /user/**, ma non possono accedere a /admin/**
+                    .requestMatchers(HttpMethod.GET,"/user/**").hasAnyAuthority(DEFAULT_ROLE)
+                    .requestMatchers(HttpMethod.POST,"/user/**").hasAnyAuthority(DEFAULT_ROLE)
                     // tutti gli utenti autenticati possono accere alle pagine rimanenti 
                     .anyRequest().authenticated()
                 )

@@ -19,6 +19,7 @@ import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.ReviewService;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,6 +29,8 @@ public class AdminController {
     private BookService bookService;
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private ReviewService reviewService;
 
     /***********************************************************************/
     /**********************METODI PER BOOK**********************************/
@@ -143,7 +146,12 @@ public class AdminController {
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
-        model.addAttribute("book", this.bookService.findById(id));
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "redirect:/book"; // o una pagina 404
+        }
+        model.addAttribute("book", book);
+        model.addAttribute("reviews", reviewService.findByBook(book));
         return "admin/adminBook";
     }
 

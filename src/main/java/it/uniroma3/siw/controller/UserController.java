@@ -1,5 +1,125 @@
 package it.uniroma3.siw.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.security.Principal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import it.uniroma3.siw.service.AuthorService;
+import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.ReviewService;
+import it.uniroma3.siw.service.UserService;
+import it.uniroma3.siw.model.Review;
+import it.uniroma3.siw.model.User;
+
+import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Credentials;
+
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
+
+@Controller
+@RequestMapping("/user")
 public class UserController {
-    
+
+    @Autowired
+    private CredentialsService credentialsService;
+    @Autowired
+    private AuthorService authorService;
+    @Autowired
+    private BookService bookService;
+    @Autowired
+    private ReviewService reviewService;
+
+    /***********************************************************************/
+    /**********************METODI PER BOOK**********************************/
+    /***********************************************************************/
+    @GetMapping("/book")
+    public String showUserBooks(Model model){
+        model.addAttribute("books", bookService.findAll());
+        return "user/userBooks";
+    }
+
+    @GetMapping("/book/{id}")
+    public String getBook(@PathVariable Long id, Model model) {
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "redirect:/book"; // o una pagina 404
+        }
+        model.addAttribute("book", book);
+        model.addAttribute("reviews", reviewService.findByBook(book));
+        return "user/userBook";
+    }
+
+    @GetMapping("/book/{id}/addReview")
+    public String showReviewForm(@PathVariable Long id, Model model) {
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "user/userBooks"; 
+        }
+        model.addAttribute("book", book);
+        model.addAttribute("review", new Review());
+        return "user/newFormReview";  // template Thymeleaf per inserire recensione
+    }
+
+    // Salva recensione inviata dal form
+    @PostMapping("/book/{id}/addReview")
+    public String submitReview(@PathVariable Long id,
+                            @ModelAttribute("review") Review review,
+                            BindingResult result,
+                            Principal principal,
+                            Model model) {
+
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "user/userBooks";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("book", book);
+            return "user/newFormReview";
+        }
+        review.setId(null);  // 🔑 Forza Hibernate a fare un INSERT, non UPDATE
+        // Recupera le credenziali dall'username del principal
+        String username = principal.getName();
+        Credentials credentials = credentialsService.getCredentials(username);
+
+        if (credentials == null) {
+            return "redirect:/login";
+        }
+
+        // Ottieni l'utente associato alle credenziali
+        User loggedUser = credentials.getUser();
+
+        review.setBook(book);
+        review.setUser(loggedUser);
+
+        reviewService.save(review);
+
+        return "redirect:/user/book/"+id;
+    }
+
+    /***********************************************************************/
+    /**********************METODI PER AUTHOR********************************/
+    /***********************************************************************/
+
+    @GetMapping("/author")
+    public String showAuthors(Model model) {
+        model.addAttribute("authors", authorService.findAll());
+        return "user/userAuthors";
+    }
+
+    @GetMapping("/author/{id}")
+    public String getAuthor(@PathVariable Long id, Model model) {
+        model.addAttribute("author", this.authorService.findById(id));
+        return "user/userAuthor";
+    }
 }

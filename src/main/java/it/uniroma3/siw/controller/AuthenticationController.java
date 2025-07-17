@@ -59,11 +59,14 @@ public class AuthenticationController {
 			if (credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "admin/indexAdmin";
 			}
+			if (credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+				return "user/indexUser";
+			}
 		}
 		return "index";
 	}
 		
-    @GetMapping(value = "/success")
+    @GetMapping("/success")
     public String defaultAfterLogin(Model model) {
         
     	UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -74,7 +77,7 @@ public class AuthenticationController {
         return "index";
     }
 
-	@PostMapping(value = { "/register" })
+	@PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute User user,
                  BindingResult userBindingResult, @Valid
                  @ModelAttribute Credentials credentials,
@@ -95,5 +98,10 @@ public class AuthenticationController {
 	@GetMapping("/indexAdmin")
     public String adminHome() {
         return "admin/indexAdmin";  // Thymeleaf template: src/main/resources/templates/admin/indexAdmin.html
+    }
+
+	@GetMapping("/indexUser")
+    public String userHome() {
+        return "user/indexUser";  // Thymeleaf template: src/main/resources/templates/user/indexUser.html
     }
 }

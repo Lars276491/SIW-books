@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuova Recensione</title>
+    <link rel="stylesheet" href="/style_review.css"> <!-- opzionale -->
+</head>
+<body>
+
+    <h1>Nuova Recensione per: <span th:text="${book.title}">Titolo Libro</span></h1>
+
+    <form th:action="@{'/user/book/' + ${book.id} + '/addReview'}" method="post" th:object="${review}">
+        <div>
+            <label for="title">Titolo Recensione:</label>
+            <input type="text" id="title" th:field="*{title}" required />
+        </div>
+        <div>
+            <label for="text">Testo:</label>
+            <textarea id="text" th:field="*{text}" required></textarea>
+        </div>
+        <div>
+            <label for="rating">Valutazione (1-5):</label>
+            <input type="number" id="rating" th:field="*{rating}" min="1" max="5" required />
+        </div>
+        <div>
+            <button type="submit">Invia Recensione</button>
+        </div>
+    </form>
+
+    <p><a th:href="@{/user/book}">Torna alla lista libri</a></p>
+
+</body>
+</html>

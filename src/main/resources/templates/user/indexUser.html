@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_indexUser.css">
+    <title>Index</title>
+</head>
+<body>
+   <header>
+    <h1>📚 Benvenuto in SIW Books!</h1>
+    <h3>Logout</h3>
+    <button id="logout" onclick="location.href='/logout'">Logout</button>
+    <button id="account" onclick="location.href='/account'">Account</button>
+  </header>
+
+  <section>
+    <div class="row">
+      <h3>📖 Scopri la nostra collezione di libri</h3>
+      <button id="libri" class="action-btn" onclick="location.href='/user/book'">Libri</button>
+    </div>
+    <div class="row">
+      <h3>✍️ Conosci i nostri autori</h3>
+      <button id="autori" class="action-btn" onclick="location.href='/user/author'">Autori</button>
+    </div>
+  </section>
+</body>
+</html>

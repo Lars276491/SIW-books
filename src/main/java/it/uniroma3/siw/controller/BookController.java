@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import it.uniroma3.siw.controller.validator.BookValidator;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.service.BookService;
+import it.uniroma3.siw.service.ReviewService;
 import it.uniroma3.siw.service.AuthorService;
 import jakarta.validation.Valid;
 
@@ -24,7 +25,8 @@ public class BookController {
     @Autowired BookService bookService;
     @Autowired AuthorService authorService;
     @Autowired BookValidator bookValidator;
-
+    
+    @Autowired ReviewService reviewService;
    
 
     @GetMapping("/book")
@@ -35,7 +37,12 @@ public class BookController {
 
     @GetMapping("/book/{id}")
     public String getBook(@PathVariable Long id, Model model) {
-        model.addAttribute("book", this.bookService.findById(id));
+        Book book = bookService.findById(id);
+        if (book == null) {
+            return "redirect:/book"; // o una pagina 404
+        }
+        model.addAttribute("book", book);
+        model.addAttribute("reviews", reviewService.findByBook(book)); 
         return "book";
     }
 
