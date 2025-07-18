@@ -21,10 +21,12 @@
     <div class="book" th:if="${book}">
         <h2 th:text="${book.title}">Book Title</h2>
         <p><strong>Year:</strong> <span th:text="${book.year}">2000</span></p>
-        <p><strong>Immagine:</strong></p>
-        <span th:if="${book.image}">
-            <img th:src="${book.image}" alt="Book Image" class="book-image">
-        </span>
+        <div th:if="${book.images}">
+            <h2>Galleria Immagini</h2>
+            <div th:each="img : ${book.images}" th:if="${img != null}">
+                <img th:src="'/uploads/' + ${img.path}" width="30%" alt="Immagine libro"/>
+            </div>
+        </div>
     </div>
 
     <div th:unless="${book}">

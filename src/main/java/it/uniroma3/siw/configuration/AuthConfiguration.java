@@ -1,4 +1,4 @@
-package it.uniroma3.siw.authentication;
+package it.uniroma3.siw.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -52,7 +52,7 @@ import javax.sql.DataSource;
                 .authorizeHttpRequests(auth -> auth
 //                .requestMatchers("/**").permitAll()
                     // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                    .requestMatchers(HttpMethod.GET,"/","/index","/register", "/login", "/book/**", "/author/**", "/css/**", "/images/**").permitAll()
+                    .requestMatchers(HttpMethod.GET,"/","/index","/register", "/login", "/book/**", "/author/**", "/css/**", "/images/**", "/uploads/**").permitAll()
                     // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                     .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                     .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
