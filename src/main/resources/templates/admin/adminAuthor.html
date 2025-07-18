@@ -21,9 +21,9 @@
         <h1 th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</h1>
         <p>Anno di nascita: <span th:text="'(' + ${author.birth} + ')'">01/01/2000</span></p>
         <p th:if="${author.death != null}">Anno di morte: <span th:text="'(' + ${author.death} + ')'">01/01/2020</span></p>
-        <span th:if="${author.image}">
-            <img th:src="${author.image}" alt="Author Image" class="author-image">
-        </span>
+        <div th:if="${author.image != null}">
+            <img th:src="@{'/uploads/author/' + ${author.image}}" alt="Immagine Autore" width="150" />
+        </div>
     </div>
 </body>
 </html>

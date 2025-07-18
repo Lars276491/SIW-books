@@ -32,20 +32,20 @@
                 <label>Anno di nascita:</label>
                 <span><input type="date" id="birth" placeholder="birth" required th:field="*{birth}" /></span>
                 <span th:if="${#fields.hasErrors('birth')}" class="error-message">
-                    <p th:errors="*{birth}">Cognome non valido</p>
+                    <p th:errors="*{birth}">Anno non valido</p>
                 </span>
             </div>
              <div class="input-group">
                 <label>Anno della morte:</label>
-                <span><input type="date" id="death" placeholder="death" required th:field="*{death}" /></span>
+                <span><input type="date" id="death" placeholder="death" th:field="*{death}" /></span>
                 <span th:if="${#fields.hasErrors('death')}" class="error-message">
-                    <p th:errors="*{death}">Cognome non valido</p>
+                    <p th:errors="*{death}">Anno non valido</p>
                 </span>
             </div>
             <!-- Immagini -->
             <div class="input-group">
                 <label for="authorImages">Immagini:</label>
-                <input type="file" id="authorImages" name="authorImages" accept="image/*" multiple />
+                <input type="file" id="authorImages" name="authorImages" accept="image/*" />
             </div>
 
             <button type="submit">Aggiungi Autore</button>

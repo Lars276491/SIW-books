@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class AdminController {
         if (book.getImages() != null) {
             for (Image img : book.getImages()) {
                 String path = img.getPath();  // o come si chiama la proprietà
-                java.io.File file = new java.io.File("C:/Users/laura/Documents/Coding/SIW/SIW-books/uploads" + path); //DA RIVEDERE
+                java.io.File file = new java.io.File("." + path); //DA RIVEDERE
                 if (file.exists()) {
                     file.delete();
                 }
@@ -233,14 +234,33 @@ public class AdminController {
 
     @PostMapping("/author")
     public String addAuthor(@ModelAttribute("author") Author author,
-                        @RequestParam("authorImages") MultipartFile[] files,
+                        @RequestParam("authorImages") MultipartFile file,
                         BindingResult result,
-                        Model model) {
+                        Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/formNewAuthor";
         }
 
-        // gestione immagini (se necessario) ...
+        if (!file.isEmpty()) {
+            // Salva l'immagine sul disco
+            String fileName = file.getOriginalFilename();
+
+            // Percorso di upload, es. cartella "uploads/authors"
+            String uploadDir = "uploads/author/";
+
+            // Assicurati che la cartella esista
+            File uploadPath = new File(uploadDir);
+            if (!uploadPath.exists()) {
+                uploadPath.mkdirs();
+            }
+
+            // Salva il file fisico
+            File dest = new File(uploadDir + fileName);
+            file.transferTo(dest);
+
+            // Salva il path nel modello autore
+            author.setImage("/uploads/author/"+fileName);
+        }
 
         this.authorService.save(author);
         return "redirect:/admin/author";
@@ -267,7 +287,19 @@ public class AdminController {
 
     @GetMapping("/deleteAuthor/{id}")
     public String deleteAuthor(@PathVariable Long id, Model model) {
+        Optional<Author> authorOpt = authorService.findById(id);
+        if (authorOpt.isPresent()) {
+            Author author = authorOpt.get();
+            String imagePath = author.getImage(); // esempio: "/uploads/authors/abc.jpg"
+            File imgFile = new File("." + imagePath); // il "." rappresenta la root del progetto
+            if (imgFile.exists()) {
+                imgFile.delete();
+            }
+        }
+
+        // Cancella l'autore dal database
         this.authorService.deleteById(id);
+
         return "redirect:/admin/author";
     }
 
