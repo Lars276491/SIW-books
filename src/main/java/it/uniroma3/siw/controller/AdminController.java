@@ -204,7 +204,13 @@ public class AdminController {
 
     @GetMapping("/author/{id}")
     public String getAuthor(@PathVariable Long id, Model model) {
-        model.addAttribute("author", this.authorService.findById(id));
+        Optional<Author> optionalAuthor = authorService.findById(id);
+        if (!optionalAuthor.isPresent()) {
+            model.addAttribute("errorMessage", "Autore non trovato.");
+            return "redirect:/admin/author"; // o pagina 404
+        }
+        Author author = optionalAuthor.get();
+        model.addAttribute("author", author);
         return "admin/adminAuthor";
     }
 
@@ -250,7 +256,12 @@ public class AdminController {
 
     @GetMapping("/modificaAuthor/{id}")
     public String modificaAuthor(@PathVariable Long id, Model model) {
-        model.addAttribute("author", this.authorService.findById(id));
+        Optional<Author> optionalAuthor = this.authorService.findById(id);
+        if (!optionalAuthor.isPresent()) {
+            model.addAttribute("errorMessage", "Autore non trovato.");
+            return "redirect:/admin/author";
+        }
+        model.addAttribute("author", optionalAuthor.get());
         return "admin/modificaAuthor";
     }
 

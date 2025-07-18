@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +32,12 @@ public class AuthorController {
 
     @GetMapping("/author/{id}")
     public String getAuthor(@PathVariable Long id, Model model) {
-        model.addAttribute("author", this.authorService.findById(id));
+        Optional<Author> optionalAuthor = authorService.findById(id);
+        if (!optionalAuthor.isPresent()) {
+            return "redirect:/author"; // o una pagina 404
+        }
+        Author author = optionalAuthor.get();
+        model.addAttribute("author", author);
         return "author";
     }
 

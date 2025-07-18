@@ -14,7 +14,7 @@ import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewService;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
-
+import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.model.Credentials;
 
@@ -133,7 +133,13 @@ public class UserController {
 
     @GetMapping("/author/{id}")
     public String getAuthor(@PathVariable Long id, Model model) {
-        model.addAttribute("author", this.authorService.findById(id));
+        Optional<Author> optionalAuthor = authorService.findById(id);
+        if (!optionalAuthor.isPresent()) {
+            model.addAttribute("errorMessage", "Autore non trovato.");
+            return "redirect:/user/author"; // o pagina 404
+        }
+        Author author = optionalAuthor.get();
+        model.addAttribute("author", author);
         return "user/userAuthor";
     }
 }
