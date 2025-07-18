@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
+import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
@@ -62,7 +64,22 @@ public class AdminController {
             model.addAttribute("errorMessage", "Libro non trovato.");
             return "redirect:/admin/book";
         }
+        Book book = optionalBook.get();
+
+        // Cancella i file delle immagini fisiche
+        if (book.getImages() != null) {
+            for (Image img : book.getImages()) {
+                String path = img.getPath();  // o come si chiama la proprietà
+                java.io.File file = new java.io.File("C:/Users/laura/Documents/Coding/SIW/SIW-books/uploads" + path); //DA RIVEDERE
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+        }
+
+        // Cancella il libro dal database
         this.bookService.deleteById(id);
+
         return "redirect:/admin/book";
     }
 
@@ -145,16 +162,16 @@ public class AdminController {
     }
     @PostMapping("/book")
     public String addBook(@ModelAttribute("book") Book book,
-                        @RequestParam("bookImages") MultipartFile[] files,
+                        @RequestParam("bookImages") List<MultipartFile> images,
                         BindingResult result,
-                        Model model) {
+                        Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/formNewBook";
         }
 
         // gestione immagini (se necessario) ...
 
-        this.bookService.save(book);
+        this.bookService.saveWithImages(book, images);
         return "redirect:/admin/book";
     }
 

@@ -2,11 +2,14 @@ package it.uniroma3.siw.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,7 +28,10 @@ public class Book {
     @Max(2025)
     private Integer year; //anno di pubblicazione
 
-    private String image;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Image> images;
+
+    
 
     @ManyToMany
     private List<Author> authors;
@@ -54,14 +60,14 @@ public class Book {
         this.year = year;
     }
 
-    public String getImage() {
-        return image;
+    public List<Image> getImages() {
+        return images;
     }
 
-    public void setImage(String urlImage) {
-        this.image = urlImage;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
-
+    
     public List<Author> getAuthors() {
         return authors;
     }

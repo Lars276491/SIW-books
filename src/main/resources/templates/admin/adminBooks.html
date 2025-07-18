@@ -16,7 +16,18 @@
     <div class="book-list">
         <div class="book-card" th:each="book : ${books}">
             <a th:href="@{'/admin/book' + '/'+ ${book.id}}">
-                <img th:src="@{${book.image}}" alt="Copertina di [[${book.title}]]" class="book-image">
+                <!-- Mostra la prima immagine se esiste -->
+                <img th:if="${book.images != null and !book.images.isEmpty()}"
+                     th:src="@{'/uploads/' + ${book.images[0].path}}"
+                     alt="Copertina di [[${book.title}]]"
+                     class="book-image">
+
+                <!-- Immagine placeholder se nessuna immagine è presente -->
+                <img th:if="${book.images == null or book.images.isEmpty()}"
+                     src="/images/default_book.jpg"
+                     alt="Nessuna immagine disponibile"
+                     class="book-image">
+
                 <h2 th:text="${book.title}">Titolo del libro</h2>
                 <p th:text="${book.year}">Anno di pubblicazione</p>
             </a>
