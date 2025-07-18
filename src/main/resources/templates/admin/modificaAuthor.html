@@ -46,7 +46,7 @@
               <!-- Anno di morte-->
             <div class="input-group">
                 <label for="death">Anno di morte:</label>
-                <input type="date" id="death" placeholder="death" required th:field="*{death}" />
+                <input type="date" id="death" placeholder="death" th:field="*{death}" />
                 <span th:if="${#fields.hasErrors('death')}" class="error-message">
                     <p th:errors="*{death}">Anno non valido</p>
                 </span>
