@@ -1,6 +1,5 @@
 package it.uniroma3.siw.service;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -12,8 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.repository.AuthorRepository;
-import org.springframework.util.StringUtils;
-import java.util.UUID;
+
 
 @Service
 public class AuthorService {
@@ -22,8 +20,6 @@ public class AuthorService {
     private AuthorRepository authorRepository;
     @Autowired
     private ImageStorageService imageStorageService;
-
-    private final String uploadDir = "uploads/author/";
 
 
 
