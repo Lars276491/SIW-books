@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Book;
@@ -48,21 +49,35 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    @Transactional
     public Book saveWithImages(Book book, List<MultipartFile> images) throws IOException {
-        book = this.bookRepository.save(book);
-        List<Image> imgs = new ArrayList<>();
-        for (MultipartFile f : images) {
-            if (!f.isEmpty()) {
-                String p = this.imageStorageService.store(f, "book/" + book.getId());
-                Image img = new Image();
-                img.setPath(p);
-                img.setBook(book);
-                imgs.add(img);
+        book = this.bookRepository.save(book); // salva inizialmente per avere l'ID
+
+        // Inizializza lista immagini se null
+        List<Image> imgs = book.getImages();
+        if (imgs == null)
+            imgs = new ArrayList<>();
+
+        // Se arrivano immagini
+        if (images != null && !images.isEmpty()) {
+            for (MultipartFile f : images) {
+                if (!f.isEmpty()) {
+                    String path = this.imageStorageService.store(f, "book/" + book.getId());
+
+                    Image image = new Image();
+                    image.setPath(path);
+                    image.setBook(book);
+                    imgs.add(image);
+                }
             }
         }
-        book.setImages(imgs);
-        return this.bookRepository.save(book);
+
+        book.setImages(imgs); // aggiorna lista (anche se vuota)
+        return this.bookRepository.save(book); // aggiorna book + immagini (se in cascade)
     }
+
+
+
 
     
 }

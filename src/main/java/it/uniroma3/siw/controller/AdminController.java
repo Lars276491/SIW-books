@@ -148,19 +148,20 @@ public class AdminController {
                             @ModelAttribute("book") Book book,
                             @RequestParam("bookImages") MultipartFile[] files,
                             BindingResult result,
-                            Model model) {
+                            Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/modificaBook";
         }
 
-        // Opzionale: setta l'ID per sicurezza
-        book.setId(id);
+        book.setId(id); // Assicurati che l'ID sia corretto
 
-        // gestione immagini qui...
+        List<MultipartFile> imageList = List.of(files); // Converti array in lista
 
-        this.bookService.save(book);
+        this.bookService.saveWithImages(book, imageList);
+
         return "redirect:/admin/book";
     }
+
     @PostMapping("/book")
     public String addBook(@ModelAttribute("book") Book book,
                         @RequestParam("bookImages") List<MultipartFile> images,
@@ -169,9 +170,6 @@ public class AdminController {
         if (result.hasErrors()) {
             return "admin/formNewBook";
         }
-
-        // gestione immagini (se necessario) ...
-
         this.bookService.saveWithImages(book, images);
         return "redirect:/admin/book";
     }

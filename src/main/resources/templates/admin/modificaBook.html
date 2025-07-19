@@ -43,9 +43,11 @@
             </div>
 
             <!-- Immagine esistente (se presente) -->
-            <div th:if="${book.image}">
-                <p>Immagine attuale:</p>
-                <img th:src="@{${book.image}}" alt="Immagine libro" style="max-width: 200px;" />
+            <div th:if="${book.images}">
+                <h2>Galleria Immagini attuali</h2>
+                <div th:each="img : ${book.images}" th:if="${img != null}">
+                    <img th:src="'/uploads/' + ${img.path}" width="30%" alt="Immagine libro"/>
+                </div>
             </div>
 
             <!-- Pulsanti -->
