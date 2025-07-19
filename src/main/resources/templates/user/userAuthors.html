@@ -11,7 +11,16 @@
     <div class="author-list">
         <div class="author-card" th:each="author : ${authors}">
             <a th:href="@{'/user/author' + '/'+ ${author.id}}">
-                <img th:src="@{'/uploads/author/' + ${author.image}}" alt="Foto di [[${book.name}]] [[${author.surname}]]" class="author-image">
+                <!--Mostra l'immagine se esiste-->
+                <img th:if="${author.image != null and author.image.path != null}"
+                     th:src="@{'/uploads/' + ${author.image.path}}"
+                     alt="Foto di [[${author.title}]]"
+                     class="author-image">
+                <!--Immagine placeholder se nessuna immagine è presente-->
+                <img th:if="${author.image == null or author.image.path == null}"
+                     src="/images/default_author.jpg"
+                     alt="Nessuna immagine disponibile"
+                     class="author-image">
                 <h2 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h2>
             </a>
         </div>
