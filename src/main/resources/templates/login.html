@@ -7,23 +7,30 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container-login">
+        <div class="logo">
+            <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
+        </div>
         <h1>Accedi a SIW Books</h1>
         <div class="form-box">
         <form th:action="@{/login}" method="POST">
             <div class="input-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" placeholder="Username" name="username" required>
             </div>
             <div class="input-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" placeholder="Password" name="password" required>
             </div>
             <div> <span th:if="${param.error !=null}">Username o password errati</span></div>
             <button type="submit">Accedi</button>
         </form>
-        <p>Non hai un account? <a th:href="@{/register}">Registrati</a></p>
         </div>
+    </div>
+    <div class="container-register">
+        <h2>Non hai un account?</h2>
+        <p>Registrati per accedere alle funzionalità di SIW Books.</p>
+        <button class="register-btn" onclick="location.href='/register'">Registrati</button>
     </div>
 </body>
 </html>
