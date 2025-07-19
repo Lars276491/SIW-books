@@ -59,9 +59,9 @@
             </div>
 
             <!-- Immagine esistente (se presente) -->
-            <div th:if="${author.image}">
-                <p>Immagine attuale:</p>
-                <img th:src="@{${author.image}}" alt="Immagine autore" style="max-width: 200px;" />
+            <div th:if="${author.image != null}">
+                <laberl>Immagine attuale:</label>
+                <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore" width="150" />
             </div>
 
             <!-- Pulsanti -->

@@ -22,7 +22,7 @@
         <p>Anno di nascita: <span th:text="'(' + ${author.birth} + ')'">01/01/2000</span></p>
         <p th:if="${author.death != null}">Anno di morte: <span th:text="'(' + ${author.death} + ')'">01/01/2020</span></p>
         <div th:if="${author.image != null}">
-            <img th:src="@{'/uploads/author/' + ${author.image}}" alt="Immagine Autore" width="150" />
+            <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore" width="150" />
         </div>
     </div>
 </body>
