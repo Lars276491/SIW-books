@@ -7,22 +7,22 @@
     <title>Index</title>
 </head>
 <body>
-   <header>
-    <h1>📚 Benvenuto in SIW Books!</h1>
-    <h3>Registrati o Accedi per scoprire il nostro mondo letterario</h3>
-    <button id="register" onclick="location.href='/register'">Registrati</button>
-    <button id="login" onclick="location.href='/login'">Accedi</button>
-  </header>
 
-  <section>
-    <div class="row">
+  <div class="container">
+    <div class="logo">
+      <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
+    </div>
+    <div class="welcome-message">
+      <h1>Benvenuto in SIW Books!</h1>
+      <h3>Registrati o Accedi per scoprire il nostro mondo letterario</h3>
+      <button id="register" onclick="location.href='/register'">Registrati</button>
+      <button id="login" onclick="location.href='/login'">Accedi</button>
+    </div>
+    <div class="actions">
       <h3>📖 Scopri la nostra collezione di libri</h3>
       <button id="libri" class="action-btn" onclick="location.href='/book'">Libri</button>
-    </div>
-    <div class="row">
       <h3>✍️ Conosci i nostri autori</h3>
       <button id="autori" class="action-btn" onclick="location.href='/author'">Autori</button>
     </div>
-  </section>
 </body>
 </html>
