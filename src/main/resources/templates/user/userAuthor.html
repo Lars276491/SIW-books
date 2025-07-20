@@ -3,17 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style_book.css">
+    <link rel="stylesheet" href="/css/style_author.css">
     <title>Autore</title>
 </head>
 <body>
-    <div th:if="${author}">
-        <h1 th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</h1>
-        <p>Anno di nascita: <span th:text="'(' + ${author.birth} + ')'">01/01/2000</span></p>
-        <p th:if="${author.death != null}">Anno di morte: <span th:text="'(' + ${author.death} + ')'">01/01/2020</span></p>
-        <div th:if="${author.image != null}">
-            <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore" width="150" />
+    <header class="navbar">
+        <div class="logo">
+            <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
         </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/indexUser">Home</a></li>
+                <li><a href="/user/book">Libri</a></li>
+                <li><a href="/user/author">Autori</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="author" th:if="${author}">
+            <h2 th:text="${author.name} + ' ' + ${author.surname}">Nome Cognome</h2>
+            <p>Anno di nascita: <span th:text="'(' + ${author.birth} + ')'">01/01/2000</span></p>
+            <p th:if="${author.death != null}">Anno di morte: <span th:text="'(' + ${author.death} + ')'">01/01/2020</span></p>
+
+            <div th:if="${author.image != null}">
+                <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore" width="13%" />
+            </div>
+        </section>
+
+        <div class="author" th:unless="${author}">
+            <p>Autore non trovato.</p>
+        </div>
+    </main>
+    <div class="author" th:unless="${author}">
+            <p>Autore non trovato.</p>
     </div>
 </body>
 </html>
