@@ -3,25 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style_indexUser.css">
+    <link rel="stylesheet" href="/css/style_index.css">
     <title>Index</title>
 </head>
 <body>
-   <div class="container">
+  <header class="navbar">
     <div class="logo">
-      <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
+      <img src="/images/logo_siw_books.png" alt="Logo SIW Books" />
     </div>
-    <div class="welcome-message">
+     <nav>
+        <ul class="nav-links">
+            <li><a href="/account">Account</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+      </nav>
+  </header>
+  <div class="content">
+    <div class="form-box">
       <h1>Benvenuto in SIW Books!</h1>
-      
-      <button id="logout" onclick="location.href='/logout'">Logout</button>
-      <button id="account" onclick="location.href='/Account'">Account</button>
+
+      <div class="actions">
+        <h3>📖 Scopri la nostra collezione di libri</h3>
+        <button class="action-btn" onclick="location.href='/user/book'">Libri</button>
+
+        <h3>✍️ Conosci i nostri autori</h3>
+        <button class="action-btn" onclick="location.href='/user/author'">Autori</button>
+      </div>
     </div>
-    <div class="actions">
-      <h3>📖 Scopri la nostra collezione di libri</h3>
-      <button id="libri" class="action-btn" onclick="location.href='/user/book'">Libri</button>
-      <h3>✍️ Conosci i nostri autori</h3>
-      <button id="autori" class="action-btn" onclick="location.href='/user/author'">Autori</button>
-    </div>
+  </div>
 </body>
 </html>

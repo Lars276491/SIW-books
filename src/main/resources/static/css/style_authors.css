@@ -1,11 +1,3 @@
-:root {
-  --primary: #8d4c4a;
-  --bg: #f5f1ee;
-  --text: #333;
-  --card-bg: #fff;
-  --border: #ddd;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -13,87 +5,118 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('/images/bookIndex.png'); /* Sostituisci con il tuo sfondo */
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  min-height: 100vh;
 }
 
-.header {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  padding: 0 4rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  position: relative;
 }
 
-.header h1 {
-  color: var(--primary);
+.logo{
+    top: -3rem;
+    left: -3rem;
+    width: 17vw;
+    height: auto;
+}
+.logo img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-.new-author-btn {
-  text-decoration: none;
-  background-color: var(--primary);
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.new-author-btn:hover {
-  background-color: #723b39;
-}
-
-.author-list {
+.nav-links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  justify-content: flex-start; /* o center se vuoi centrare */
-  padding: 1rem 0;
+  justify-content: flex-end;
+  gap: 2rem; /* spazio tra i link, opzionale */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
 }
 
-.author-card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
-  /* Cambiato da width fissa a flex basis con max-width per responsività */
-  flex: 1 1 200px;  /* grow=1, shrink=1, basis=200px */
-  max-width: 220px; /* max larghezza massima */
-  box-sizing: border-box;
-  text-align: center;
-  transition: box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.author-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.author-card a {
+.nav-links a {
+  color: white;
   text-decoration: none;
-  color: inherit;
-  display: block; /* fa cliccare tutta la card */
-  height: 100%;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  transition: color 0.3s ease;
 }
 
-.author-image {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 4px;
+.nav-links a:hover,
+.nav-links .active {
+  color: #ffd700;
+}
+
+.content {
+  padding: 2rem 4rem 4rem 4rem; /* top, right, bottom, left */
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  min-height: 100vh;
+}
+
+
+.description h1 {
+  font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.author-card h2 {
+.summary {
   font-size: 1.1rem;
-  color: var(--primary);
+  max-width: 600px;
+  margin-bottom: 1rem;
 }
 
-/* Optional: migliora la visualizzazione su mobile */
-@media (max-width: 600px) {
-  .author-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
+
+.authors {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.author-card {
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.author-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.author-card:hover img {
+  transform: scale(1.05);
+}
+
+#no-author {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #999;
+}
+a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #ffd700;
 }

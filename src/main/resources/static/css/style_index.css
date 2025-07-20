@@ -1,36 +1,33 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 body {
-    position: relative;
-    min-height: 100vh;
-    color: #fff;
-    font-family: 'Merriweather', serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('/images/indexImage.webp');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  margin: 0;
+  min-height: 100vh;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-image: url('/images/indexImage.webp');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  position: relative;
 }
+
 .logo{
-    position: absolute;
-    top: 0;
-    left: 0;
+    top: -3rem;
+    left: -3rem;
     width: 17vw;
     height: auto;
-    z-index: 10;
 }
 .logo img {
     width: 100%;
@@ -38,101 +35,83 @@ body::before {
     display: block;
 }
 
-.container {
-    font-family: 'Merriweather', serif;
-    background: #d3a870cb;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 50vw;
-    border-radius: 0 20px 20px 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.nav-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem; /* spazio tra i link, opzionale */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
 }
 
-.welcome-message {
-    font-family: 'Merriweather', serif;
-    text-align: center;             
-    margin-bottom: 20px;
-    color: #ffffff;
-    margin-top: 18%;    
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  transition: color 0.3s ease;
 }
 
-h1 {
-    font-size: 2.5em;             
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 8px #00000055;
+.nav-links a:hover,
+.nav-links .active {
+  color: #ffd700;
 }
 
-h3 {
-    font-size: 2em;               
-    margin-bottom: 30px;
-    font-weight: 400;
-    text-shadow: 1px 1px 6px #00000033;
+.content {
+  padding: 6rem 2rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
 }
 
-#register, #login {
-    font-family: 'Merriweather', serif;
-    display: block;
-    width: 16.9vw;
-    margin: 15px auto;
-    padding: 18px 0;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.3em;            
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    transition: all 0.2s ease-in-out;
+.form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 600px;
+  width: 100%;
 }
 
-#register {
-    background-color: #55201e;
-    color: white;
+h1, h3 {
+  margin: 0;
 }
 
-#register:hover {
-    background-color: #C1582E;
-    color: #ffffff;
+.button-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-#login {
-    background-color: #55201e;
-    color: white;
+button,
+.action-btn {
+ width: 10rem;
+  padding: 0.8rem 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
-#login:hover {
-    background-color: #C1582E;
-    color: #ffffff;
+button:hover,
+.action-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .actions {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-
-.action-btn {
-    font-family: 'Merriweather', serif;
-    display: block;
-    width: 16.9vw;
-    margin: 15px auto;
-    padding: 18px 0;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.3em;            
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    transition: all 0.2s ease-in-out;
-    color: #ffffff;
-    background-color: #55201e;
-}
-
-.action-btn:hover {
-    background-color: #C1582E;
-    color: #ffffff;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }

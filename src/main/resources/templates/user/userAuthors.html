@@ -7,8 +7,30 @@
     <title>Autori</title>
 </head>
 <body>
-    <h1>Autori</h1>      
-    <div class="author-list">
+    <header class="navbar">
+        <div class="logo">
+            <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/indexUser">Home</a></li>
+                <li><a href="/user/book">Libri</a></li>
+                <li><a href="/user/author">Autori</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="content">
+        <section class="description">
+            <h1>Lista degli Autori</h1>
+            <p class="summary">
+                Benvenuto nella sezione degli autori di SIW Books. Qui puoi esplorare la nostra collezione di autori, 
+                visualizzare i dettagli e le immagini associate a ciascun autore. Se non trovi alcun autore, 
+                assicurati di aver effettuato l'accesso correttamente o contatta il supporto per assistenza.
+            </p>
+        </section>     
+    <div class="authors">
         <div class="author-card" th:each="author : ${authors}">
             <a th:href="@{'/user/author' + '/'+ ${author.id}}">
                 <!--Mostra l'immagine se esiste-->

@@ -3,36 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-    <link rel="stylesheet" href="/css/style_books.css">
+    <title>Book</title>
+    <link rel="stylesheet" href="/style_book.css">
 </head>
 <body>
     <div class="header">
-        <h1>Books</h1>
-        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color:red"></p>
+        <h1>Book</h1>
+        <a href="/book">Ritorna alla lista dei libri</a>
+        
     </div>
-    <div class="book-list">
-        <div class="book-card" th:each="book : ${books}">
-            <a th:href="@{'/user/book' + '/'+ ${book.id}}">
-                <!-- Mostra la prima immagine se esiste -->
-                <img th:if="${book.images != null and !book.images.isEmpty()}"
-                     th:src="@{'/uploads/' + ${book.images[0].path}}"
-                     alt="Copertina di [[${book.title}]]"
-                     class="book-image">
-
-                <!-- Immagine placeholder se nessuna immagine è presente -->
-                <img th:if="${book.images == null or book.images.isEmpty()}"
-                     src="/images/default_book.jpg"
-                     alt="Nessuna immagine disponibile"
-                     class="book-image">
-
-                <h2 th:text="${book.title}">Titolo del libro</h2>
-                <p th:text="${book.year}">Anno di pubblicazione</p>
-            </a>
+    
+    <div class="book" th:if="${book}">
+        <h2 th:text="${book.title}">Book Title</h2>
+        <p><strong>Year:</strong> <span th:text="${book.year}">2000</span></p>
+         <!-- Iterazione sulle immagini -->
+        <div th:if="${book.images}">
+            <h2>Galleria Immagini</h2>
+            <div th:each="img : ${book.images}" th:if="${img != null}">
+                <img th:src="'/uploads/' + ${img.path}" width="30%" alt="Immagine libro"/>
+            </div>
         </div>
     </div>
 
-    <div id="no-book" th:if="${books.isEmpty()}">
-        <p>Nessun libro trovato.</p>
+    <div th:unless="${book}">
+        <p>Book not found.</p>
     </div>
+    <div class="reviews" th:if="${reviews}">
+    <h3>Recensioni:</h3>
+    <div th:each="review : ${reviews}" class="review">
+        <h4 th:text="${review.title}">Titolo recensione</h4>
+        <p><strong>Voto:</strong> <span th:text="${review.rating}">5</span>/5</p>
+        <p th:text="${review.text}">Testo della recensione</p>
+        <p><em>Utente:</em> <span th:text="${review.user.name}">Mario Rossi</span></p>
+    </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(reviews)}">
+        <p>Non ci sono ancora recensioni per questo libro.</p>
+    </div>
+
+</body>
 </html>

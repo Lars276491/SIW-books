@@ -7,12 +7,21 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container-login">
+    <header class="navbar">
         <div class="logo">
             <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
         </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/register">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
         <h1>Accedi a SIW Books</h1>
         <div class="form-box">
+        
         <form th:action="@{/login}" method="POST">
             <div class="input-group">
                 <label for="username">Username:</label>
@@ -26,11 +35,6 @@
             <button type="submit">Accedi</button>
         </form>
         </div>
-    </div>
-    <div class="container-register">
-        <h2>Non hai un account?</h2>
-        <p>Registrati per accedere alle funzionalità di SIW Books.</p>
-        <button class="register-btn" onclick="location.href='/register'">Registrati</button>
     </div>
 </body>
 </html>

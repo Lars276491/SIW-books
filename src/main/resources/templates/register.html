@@ -7,10 +7,18 @@
     <title>Registrazione</title>
 </head>
 <body>
-    <div class="container-register" >
+    <header class="navbar">
         <div class="logo">
             <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
         </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content" >
         <h1>Registrati a SIW Books</h1>
         <div class="form-box">
             <form th:action="@{/register}" method="POST">

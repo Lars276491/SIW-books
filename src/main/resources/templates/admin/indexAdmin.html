@@ -6,24 +6,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Area Admin - SIW Books</title>
-    <link rel="stylesheet" href="/css/style_admin.css" />
+    <link rel="stylesheet" href="/css/style_index.css" />
 </head>
 <body>
-    <header>
-        <h1 sec:authorize="hasAuthority('ADMIN')">🔒 Benvenuto, Admin!</h1>
-        <nav>
-            <ul>
-                <li><a href="/admin/book">Gestisci Libri</a></li>
-                <li><a href="/admin/author">Gestisci Autori</a></li>
-                <li><a href="/admin/user">Gestisci Utenti</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+    <header class="navbar">
+    <div class="logo">
+      <img src="/images/logo_siw_books.png" alt="Logo SIW Books" />
+    </div>
+     <nav>
+        <ul class="nav-links">
+            <li><a href="/account">Account</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+      </nav>
+  </header>
+<div class="content">
+    <div class="form-box">
+      <h1>Bentornato Amministratore!</h1>
 
+      <div class="actions">
+        <h3>📖 Ecco la lista dei libri</h3>
+        <button class="action-btn" onclick="location.href='/admin/book'">Libri</button>
 
-    <footer>
-        <p>© 2025 SIW Books - Area Amministrazione</p>
-    </footer>
+        <h3>✍️ Ecco la lista degli autori</h3>
+        <button class="action-btn" onclick="location.href='/admin/author'">Autori</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
