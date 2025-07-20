@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifica Libro</title>
-    <link rel="stylesheet" href="/css/style_register.css">
+    <link rel="stylesheet" href="/css/style_form.css">
 </head>
 <body>
-    <div class="container">
+
+    <header class="navbar">
+        <div class="logo">
+            <img src="/images/logo_siw_books.png" alt="Logo SIW Books">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/indexAdmin">Home</a></li>
+                <li><a href="/admin/book">Libri</a></li>
+                <li><a href="/admin/author">Autori</a></li>
+                <li><a href="/account">Account</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
         <h1>Modifica Libro</h1>
 
         <form th:action="@{/admin/book/{id}(id=${book.id})}"
@@ -38,13 +53,19 @@
 
             <!-- Immagini -->
             <div class="input-group">
-                <label for="bookImages">Immagini:</label>
-                <input type="file" id="bookImages" name="bookImages" accept="image/*" multiple />
+                <label>Immagini:</label>
+                    <div>
+                        <label class="custom-file-upload">
+                        Scegli Immagini
+                        <input type="file" name="bookImages" accept="image/*" multiple id="fileInput" />
+                        </label>
+                    </div>
+                    <div id="preview" class="image-preview"></div> <!-- Qui verranno mostrate le immagini -->
             </div>
 
             <!-- Immagine esistente (se presente) -->
             <div th:if="${book.images}">
-                <h2>Galleria Immagini attuali</h2>
+                <label>Galleria Immagini attuali</label>
                 <div th:each="img : ${book.images}" th:if="${img != null}">
                     <img th:src="'/uploads/' + ${img.path}" width="30%" alt="Immagine libro"/>
                 </div>
@@ -52,8 +73,33 @@
 
             <!-- Pulsanti -->
             <button type="submit">Salva Modifiche</button>
-            <button type="button" onclick="location.href='/admin/book'">Annulla</button>
+            
         </form>
+        <button type="button" onclick="location.href='/admin/book'">Annulla</button>
     </div>
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+
+        fileInput.addEventListener('change', function () {
+            preview.innerHTML = ''; // Pulisce eventuali anteprime precedenti
+
+            const files = Array.from(fileInput.files);
+
+            files.forEach(file => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                preview.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            }
+            });
+        });
+    </script>
 </body>
 </html>

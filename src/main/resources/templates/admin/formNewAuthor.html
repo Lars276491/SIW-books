@@ -49,6 +49,7 @@
                     <span th:if="${#fields.hasErrors('nationality')}" class="error-message">
                         <p th:errors="*{nationality}">Nazionalità non valida</p>
                     </span>
+                </div>
                 <div class="input-group">
                     <label>Anno di nascita:</label>
                     <span><input type="date" id="birth" placeholder="birth" required th:field="*{birth}" th:attr="max=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"/></span>
@@ -66,11 +67,11 @@
                 <!-- Immagini -->
                 <div class="input-group">
                     <div>
-                        <label>Immagini:</label>
+                        <label>Immagine:</label>
                         <div>
                             <label class="custom-file-upload">
-                            Scegli Immagini
-                            <input type="file" name="authorImages" accept="image/*" multiple id="fileInput" />
+                            Scegli Immagine
+                            <input type="file" name="authorImages" accept="image/*" id="fileInput" />
                             </label>
                         </div>
                     <div id="preview" class="image-preview"></div> 

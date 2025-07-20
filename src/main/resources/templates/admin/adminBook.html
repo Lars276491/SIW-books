@@ -26,10 +26,10 @@
             <p><strong>Anno di pubblicazione:</strong> <span th:text="${book.year}">2000</span></p>
 
             <div th:if="${book.images}">
-                <h2>Galleria Immagini</h2>
-                <div th:each="img : ${book.images}" th:if="${img != null}">
-                    <img th:src="@{'/uploads/' + ${img.path}}" width="13%" alt="Immagine libro"/>
-                </div>
+                    <h2>Galleria Immagini</h2>
+                    <div th:each="img : ${book.images}" th:if="${img != null}">
+                        <img th:src="@{'/uploads/' + ${img.path}}" width="13%" alt="Immagine libro" style=""/>
+                    </div>
             </div>
             <span th:if="${book}">
                 <a th:href="@{/admin/modificaBook/{id}(id=${book.id})}">Modifica Libro</a>

@@ -27,7 +27,7 @@
 
             <div th:if="${book.images}">
                 <h2>Galleria Immagini</h2>
-                <div th:each="img : ${book.images}" th:if="${img != null}">
+                    <div th:each="img : ${book.images}" th:if="${img != null}">
                     <img th:src="@{'/uploads/' + ${img.path}}" width="13%" alt="Immagine libro"/>
                 </div>
             </div>
