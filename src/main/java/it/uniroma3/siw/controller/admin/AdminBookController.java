@@ -22,6 +22,7 @@ import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.service.*;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -120,9 +121,9 @@ public class AdminBookController {
 
     @PostMapping("/book/{id}")
     public String updateBook(@PathVariable Long id,
-                            @ModelAttribute("book") Book book,
-                            @RequestParam("bookImages") MultipartFile[] files,
+                            @Valid@ModelAttribute("book") Book book,
                             BindingResult result,
+                            @RequestParam("bookImages") MultipartFile[] files,
                             Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/modificaBook";
@@ -138,9 +139,9 @@ public class AdminBookController {
     }
 
     @PostMapping("/book")
-    public String addBook(@ModelAttribute("book") Book book,
-                        @RequestParam("bookImages") List<MultipartFile> images,
+    public String addBook(@Valid@ModelAttribute("book") Book book,
                         BindingResult result,
+                        @RequestParam("bookImages") List<MultipartFile> images,
                         Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/formNewBook";

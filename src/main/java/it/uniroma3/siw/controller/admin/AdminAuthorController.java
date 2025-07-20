@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Author;
 
 import it.uniroma3.siw.service.*;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -74,9 +75,9 @@ public class AdminAuthorController {
 
 
     @PostMapping("/author")
-    public String addAuthor(@ModelAttribute("author") Author author,
-                            @RequestParam("authorImages") MultipartFile file,
+    public String addAuthor(@Valid@ModelAttribute("author") Author author,
                             BindingResult result,
+                            @RequestParam("authorImages") MultipartFile file,
                             Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/formNewAuthor";
@@ -91,9 +92,9 @@ public class AdminAuthorController {
 
     @PostMapping("/author/{id}")
     public String updateAuthor(@PathVariable Long id,
-                            @ModelAttribute("author") Author author,
-                            @RequestParam(value = "authorImages", required = false) MultipartFile file,
+                            @Valid@ModelAttribute("author") Author author,
                             BindingResult result,
+                            @RequestParam(value = "authorImages", required = false) MultipartFile file,
                             Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/modificaAuthor";

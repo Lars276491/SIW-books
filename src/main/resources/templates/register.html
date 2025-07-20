@@ -42,7 +42,7 @@
                 </div>
                 <div class="input-group" th:object="${user}">
                     <label for="birthDate">Data di Nascita:</label>
-                    <span><input type="date" id="birth" placeholder="birth" required th:field="*{birth}" /></span>
+                    <span><input type="date" id="birth" placeholder="birth" required th:field="*{birth}" th:attr="max=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}" /></span>
                     <span th:if="${#fields.hasErrors('birth')}" class="error-message">
                         <p th:errors="*{birth}">Data di nascita non valida</p></span>
                 </div>

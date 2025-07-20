@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Author {
@@ -28,14 +30,20 @@ public class Author {
     @NotBlank
     private String surname;
 
+    @NotBlank
+    private String nationality;
+
+    
+
     @NotNull
+    @Past(message = "La data di nascita deve essere nel passato")
     private LocalDate birth;
 
     @OneToOne(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Image image;
 
     
-
+    @PastOrPresent(message = "La data di morte deve essere nel passato o presente")
     private LocalDate death;
 
     @ManyToMany(mappedBy = "authors")
@@ -63,6 +71,14 @@ public class Author {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public LocalDate getBirth() {
