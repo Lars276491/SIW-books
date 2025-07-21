@@ -152,6 +152,13 @@ public class AdminAuthorController {
         return "admin/modificaAuthor";
     }
 
+    @GetMapping("/author/search")
+    public String searchAuthors(@RequestParam("query") String query, Model model) {
+        List<Author> authors = authorService.findByNameOrSurname(query);
+        model.addAttribute("authors", authors);
+        return "admin/adminAuthors"; // Nome del template HTML
+    }
+
 
     
 }

@@ -22,8 +22,8 @@
         </nav>
     </header>
     <main class="content">
-        <form method="get" th:action="@{/author/search}" class="search-bar">
-            <input list="author-suggestions" name="query" placeholder="Cerca per titolo..." autocomplete="off" required id="searchInput">
+        <form method="get" th:action="@{/user/author/search}" class="search-bar">
+            <input list="author-suggestions" name="query" placeholder="Cerca per nome o cognome..." autocomplete="off" required id="searchInput">
             <datalist id="author-suggestions">
                 <option th:each="a : ${authors}"
                         th:value="${a.name +' '+ a.surname}">[[${a.name +' '+ a.surname}]]

@@ -201,6 +201,12 @@ public class AdminBookController {
         return "redirect:/admin/modificaAutori/" + bookId;
     }
 
+    @GetMapping("/book/search")
+    public String searchBooks(@RequestParam("query") String query, Model model) {
+        List<Book> books = bookService.findByTitleContainingIgnoreCase(query);
+        model.addAttribute("books", books);
+        return "admin/adminBooks"; // Nome del template HTML
+    }
     
 
    
