@@ -161,3 +161,58 @@ a:hover {
   color: #ffd700;
   text-decoration: underline #ffd700;
 }
+
+.authors-section {
+  padding: 1rem 4rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.authors-flex {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.authors-flex::-webkit-scrollbar {
+  height: 6px;
+}
+.authors-flex::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 3px;
+}
+
+.author-card {
+  flex: 0 0 auto;
+  width: 150px;
+  text-align: center;
+  
+}
+
+.author-card img {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  height: 250px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.author-card img:hover {
+  transform: scale(1.05);
+}
+
+.author-card p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ffd700;
+}
+.authors-section h3 {
+  color: #fff; 
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}

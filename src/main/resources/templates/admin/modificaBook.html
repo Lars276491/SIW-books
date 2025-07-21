@@ -70,7 +70,19 @@
                     <img th:src="'/uploads/' + ${img.path}" width="30%" alt="Immagine libro"/>
                 </div>
             </div>
-
+            <!-- Autori associati -->
+            <div th:if="${allAuthors != null and #lists.size(allAuthors) > 0}" class="input-group">
+                    <label>Autori associati:</label>
+                    <span>
+                        <select multiple name="authorIds" id="authorIds"  class="styled-select">
+                            <option th:each="author : ${allAuthors}"
+                                    th:value="${author.id}"
+                                    th:text="${author.name + ' ' + author.surname}"
+                                    th:selected="${book.authors != null} ? ${book.authors.contains(author)} : false">
+                            </option>
+                        </select>
+                    </span>
+                </div>
             <!-- Pulsanti -->
             <button type="submit">Salva Modifiche</button>
             

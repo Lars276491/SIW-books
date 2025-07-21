@@ -60,6 +60,7 @@ public class AdminBookController {
     @GetMapping("/formNewBook")
     public String getFormNewBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("allAuthors", authorService.findAll());
         return "admin/formNewBook";
     }
 
@@ -97,6 +98,7 @@ public class AdminBookController {
             return "redirect:/admin/book";
         }
         model.addAttribute("book", optionalBook.get());
+        model.addAttribute("allAuthors", authorService.findAll());
         return "admin/modificaBook";
        // model.addAttribute("book", this.bookService.findById(id));
        // return "admin/modificaBook";
@@ -124,6 +126,7 @@ public class AdminBookController {
                             @Valid@ModelAttribute("book") Book book,
                             BindingResult result,
                             @RequestParam("bookImages") MultipartFile[] files,
+                            @RequestParam(value = "authorIds", required = false) List<Long> authorIds,
                             Model model) throws IOException {
         if (result.hasErrors()) {
             return "admin/modificaBook";
@@ -132,6 +135,17 @@ public class AdminBookController {
         book.setId(id); // Assicurati che l'ID sia corretto
 
         List<MultipartFile> imageList = List.of(files); // Converti array in lista
+
+        // Associa gli autori selezionati
+        if (authorIds != null) {
+            for (Long authorId : authorIds) {
+                Optional<Author> optionalAuthor = authorService.findById(authorId);
+                Author author = optionalAuthor.get();
+                if (author != null) {
+                    book.addAuthor(author);
+                }
+            }
+        }
 
         this.bookService.saveWithImages(book, imageList);
 
@@ -142,10 +156,23 @@ public class AdminBookController {
     public String addBook(@Valid@ModelAttribute("book") Book book,
                         BindingResult result,
                         @RequestParam("bookImages") List<MultipartFile> images,
+                        @RequestParam(value = "authorIds", required = false) List<Long> authorIds,
                         Model model) throws IOException {
         if (result.hasErrors()) {
+            model.addAttribute("allAuthors", authorService.findAll());
             return "admin/formNewBook";
         }
+        //associa gli autori selezionati
+        if (authorIds != null) {
+            for (Long authorId : authorIds) {
+                Optional<Author> optionalAuthor = authorService.findById(authorId);
+                Author author = optionalAuthor.get();
+                if (author != null) {
+                    book.addAuthor(author);
+                }
+            }
+        }
+
         this.bookService.saveWithImages(book, images);
         return "redirect:/admin/book";
     }

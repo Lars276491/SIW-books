@@ -55,6 +55,19 @@
                     </div>
                     <div id="preview" class="image-preview"></div> <!-- Qui verranno mostrate le immagini -->
                 </div>
+
+                 <div th:if="${allAuthors != null and #lists.size(allAuthors) > 0}" class="input-group">
+                    <label>Autori associati:</label>
+                    <span>
+                        <select multiple name="authorIds" id="authorIds"  class="styled-select">
+                            <option th:each="author : ${allAuthors}"
+                                    th:value="${author.id}"
+                                    th:text="${author.name + ' ' + author.surname}"
+                                    th:selected="${book.authors != null} ? ${book.authors.contains(author)} : false">
+                            </option>
+                        </select>
+                    </span>
+                </div>
                 <button type="submit">Aggiungi Libro</button>
             </form>
         </div>

@@ -122,16 +122,15 @@ public class AdminAuthorController {
         author.setId(id);
         author.setImage(null); // evita errori di binding su image
 
-        if(bookIds != null){
-            List<Book> books = bookService.findAllById(bookIds);
-            author.setBooks(books);
-            // Aggiorna la relazione bidirezionale
-                for (Book book : books) {
-                    book.getAuthors().add(author);
-                    bookService.save(book); // salva il libro aggiornato
-                }  
-        }else{
-            author.setBooks(null);
+        //associa i libri selezionati
+        if (bookIds != null) {
+            for (Long bookId : bookIds) {
+                Optional<Book> optionalBook = bookService.findById(bookId);
+                Book book = optionalBook.get();
+                if (book != null) {
+                    author.addBook(book);
+                }
+            }
         }
 
         // Usa il metodo del servizio per gestire autore e immagine

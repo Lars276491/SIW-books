@@ -37,6 +37,11 @@ public class Book {
     
 
     @ManyToMany
+    @JoinTable(
+            name = "author_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+        )
     private List<Author> authors = new ArrayList<>();
 
     public Long getId() {
@@ -108,5 +113,13 @@ public class Book {
         } else if (!year.equals(other.year))
             return false;
         return true;
+    }
+    public void addAuthor(Author author) {
+        if (author!=null && !this.authors.contains(author)) {
+            this.authors.add(author);
+            if(!author.getBooks().contains(this)) {
+                author.getBooks().add(this);
+            }
+        }
     }
 }
