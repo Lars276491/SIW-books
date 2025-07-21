@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Author;
 import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.repository.AuthorRepository;
 import it.uniroma3.siw.repository.BookRepository;
 
 @Service
@@ -22,6 +24,8 @@ public class BookService {
     private BookRepository bookRepository;
     @Autowired
     private ImageStorageService imageStorageService;
+    @Autowired
+    private AuthorRepository authorRepository;
 
     public Book save(Book book) {
         return bookRepository.save(book);
@@ -35,10 +39,31 @@ public class BookService {
         return bookRepository.findById(id);
     }    
 
-    
-    public void addAuthorToBook(Long bookId, Long authorId) {
-        bookRepository.addAuthorToBook(bookId, authorId);
+    public List<Book> findAllById(List<Long> ids) {
+        return (List<Book>) this.bookRepository.findAllById(ids);
     }
+
+
+    @Transactional
+    public void addAuthorToBook(Long bookId, Long authorId) {
+        Optional<Book> bookOpt = bookRepository.findById(bookId);
+        Optional<Author> authorOpt = authorRepository.findById(authorId);
+        if (bookOpt.isPresent() && authorOpt.isPresent()) {
+            Book book = bookOpt.get();
+            Author author = authorOpt.get();
+
+            // Aggiungi autore al libro
+            book.getAuthors().add(author);
+
+            // Aggiungi libro alla lista autori (relazione bidirezionale)
+            author.getBooks().add(book);
+
+            // Salva (cascade o join table aggiornata)
+            bookRepository.save(book);
+            authorRepository.save(author);
+        }
+    }
+
     public boolean existsByTitleAndYear(String title, Integer year) {
         return bookRepository.existsByTitleAndYear(title, year);
     }
@@ -75,6 +100,11 @@ public class BookService {
         book.setImages(imgs); // aggiorna lista (anche se vuota)
         return this.bookRepository.save(book); // aggiorna book + immagini (se in cascade)
     }
+
+    public List<Book> findByTitleContainingIgnoreCase(String query) {
+        return bookRepository.findByTitleContainingIgnoreCase(query);
+    }
+
 
 
 

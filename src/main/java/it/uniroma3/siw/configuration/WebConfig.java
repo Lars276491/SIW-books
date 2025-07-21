@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private UploadProperties uploadProperties;
 
+    @SuppressWarnings("null")
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uploads/**")

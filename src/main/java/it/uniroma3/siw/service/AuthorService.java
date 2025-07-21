@@ -1,21 +1,28 @@
 package it.uniroma3.siw.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Author;
+import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.repository.AuthorRepository;
+
 
 @Service
 public class AuthorService {
     
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private ImageStorageService imageStorageService;
+
+
 
     public Author save(Author author) {
         return authorRepository.save(author);
@@ -36,19 +43,33 @@ public class AuthorService {
         authorRepository.deleteById(id);
     }
 
-    public String saveAuthorImage(MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            return null; // or handle the error as needed
-        }
-        File uploadDir = new File("uploads/author/");
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs(); // Create the directory if it doesn't exist
-        }
-        String fileName = file.getOriginalFilename();
+    @Transactional
+    public Author saveWithImage(Author author, MultipartFile imageFile) throws IOException {
 
-        File dest = new File(uploadDir, fileName);
-        file.transferTo(dest); // Save the file to the destination
-        return  "uploads/author/" + fileName; // Return the path or filename as needed
+        // Salva l'autore inizialmente per avere un ID (serve per il path immagine)
+        author = this.authorRepository.save(author);
+
+        // Gestione dell'immagine
+        if (imageFile != null && !imageFile.isEmpty()) {
+            String path = this.imageStorageService.store(imageFile, "author/" + author.getId());
+
+            Image image = new Image();
+            image.setPath(path);
+            image.setAuthor(author);    // Associa autore
+            author.setImage(image);     // Associa immagine all'autore
+        }
+
+        // Salva autore con immagine associata
+        return this.authorRepository.save(author);
     }
     
+    public Optional<Author> findByIdWithBooks(Long id) {
+        Author author = authorRepository.findByIdWithBooks(id);
+        return Optional.ofNullable(author);
+    }
+
+    public List<Author> findByNameOrSurname(String query) {
+        return authorRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(query, query);
+    }
+
 }

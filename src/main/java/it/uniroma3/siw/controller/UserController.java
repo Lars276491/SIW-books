@@ -3,10 +3,12 @@ package it.uniroma3.siw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
@@ -121,6 +123,13 @@ public class UserController {
         return "redirect:/user/book/"+id;
     }
 
+    @GetMapping("/book/search")
+    public String searchBooks(@RequestParam("query") String query, Model model) {
+        List<Book> books = bookService.findByTitleContainingIgnoreCase(query);
+        model.addAttribute("books", books);
+        return "user/userBooks"; // Nome del template HTML
+    }
+
     /***********************************************************************/
     /**********************METODI PER AUTHOR********************************/
     /***********************************************************************/
@@ -141,5 +150,11 @@ public class UserController {
         Author author = optionalAuthor.get();
         model.addAttribute("author", author);
         return "user/userAuthor";
+    }
+    @GetMapping("/author/search")
+    public String searchAuthors(@RequestParam("query") String query, Model model) {
+        List<Author> authors = authorService.findByNameOrSurname(query);
+        model.addAttribute("authors", authors);
+        return "user/userAuthors"; // Nome del template HTML
     }
 }

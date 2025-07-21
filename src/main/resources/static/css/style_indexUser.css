@@ -2,54 +2,89 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 body {
-    font-family: 'Merriweather', serif;
-    background-color: #f5f0e8;
-    color: #2c3e50;
+    position: relative;
     min-height: 100vh;
+    color: #fff;
+    font-family: 'Merriweather', serif;
 }
 
-header {
-    color: white;
-    padding: 0; /* Rimuovi padding per un vero centraggio */
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    background-image: url('https://i.pinimg.com/736x/f1/73/48/f173489e9c060c0023b9e45fe1f6e3b2.jpg');
-    background-size: cover;
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    display: flex;                /* Assicurati che sia flex */
+    background-image: url('/images/indexImage.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+.logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 17vw;
+    height: auto;
+    z-index: 10;
+}
+.logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    font-family: 'Merriweather', serif;
+    background: #d3a870cb;
+    display: flex;
     flex-direction: column;
-    justify-content: center;      /* Centra verticalmente */
-    align-items: center;          /* Centra orizzontalmente */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 50vw;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.welcome-message {
+    font-family: 'Merriweather', serif;
+    text-align: center;             
+    margin-bottom: 20px;
+    color: #ffffff;
+    margin-top: 18%;    
 }
 
 h1 {
-    font-size: 3.5em;             /* Più grande */
+    font-size: 2.5em;             
     margin-bottom: 15px;
     text-shadow: 2px 2px 8px #00000055;
 }
 
 h3 {
-    font-size: 2em;               /* Più grande */
+    font-size: 2em;               
     margin-bottom: 30px;
     font-weight: 400;
     text-shadow: 1px 1px 6px #00000033;
 }
 
 #logout, #account {
+    font-family: 'Merriweather', serif;
     display: block;
-    width: 260px;
+    width: 16.9vw;
     margin: 15px auto;
     padding: 18px 0;
     border: none;
     border-radius: 30px;
-    font-size: 1.3em;             /* Più grande */
+    font-size: 1.3em;            
     cursor: pointer;
     font-weight: bold;
     box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
 
 #logout {
@@ -58,8 +93,8 @@ h3 {
 }
 
 #logout:hover {
-    background-color: #753d3b;
-    color: #ecf0f1;
+    background-color: #C1582E;
+    color: #ffffff;
 }
 
 #account {
@@ -68,49 +103,36 @@ h3 {
 }
 
 #account:hover {
-    background-color: #753d3b;
-    color: #ecf0f1;
+    background-color: #C1582E;
+    color: #ffffff;
 }
 
-section {
+.actions {
     text-align: center;
-    padding: 80px 20px;                /* Più spazio sopra e sotto */
-    background-color: #f5f0e8;
-    border-top: 1px solid #ddd;
-    min-height: 60vh;                  /* Rende la section più alta */
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.row {
-    margin: 40px auto;                 /* Più spazio tra le righe */
-    display: flex;
-    flex-direction: row;               /* Allinea titolo e bottone in orizzontale */
-    align-items: center;
-    justify-content: center;
-}
-
-.row h3 {
-    margin-bottom: 0;
-    margin-right: 25px;                /* Spazio tra titolo e bottone */
-    font-size: 2em;                    /* Titolo più grande */
-}
 
 .action-btn {
-    padding: 18px 40px;                /* Bottoni più grandi */
+    font-family: 'Merriweather', serif;
+    display: block;
+    width: 16.9vw;
+    margin: 15px auto;
+    padding: 18px 0;
     border: none;
-    border-radius: 25px;
-    font-size: 1.3em;                  /* Testo bottone più grande */
+    border-radius: 30px;
+    font-size: 1.3em;            
     cursor: pointer;
-    font-weight: 600;
-    background-color: #8d4c4a;
-    color: white;
-    transition: background 0.3s, color 0.3s;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: all 0.2s ease-in-out;
+    color: #ffffff;
+    background-color: #55201e;
 }
 
 .action-btn:hover {
-    background-color: #683e3c;
-    color: #fff9f0;
+    background-color: #C1582E;
+    color: #ffffff;
 }

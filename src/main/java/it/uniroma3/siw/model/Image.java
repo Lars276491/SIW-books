@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Image {
@@ -17,6 +18,11 @@ public class Image {
 
     @ManyToOne
     private Book book; // The book this image belongs to
+
+    @OneToOne
+    private Author author; // The author this image belongs to
+
+    
 
     public Long getId() {
         return id;
@@ -41,6 +47,15 @@ public class Image {
     public void setBook(Book book) {
         this.book = book;
     }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

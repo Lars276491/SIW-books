@@ -1,16 +1,22 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Author {
@@ -25,16 +31,22 @@ public class Author {
     @NotBlank
     private String surname;
 
+    @NotBlank
+    private String nationality;
+
     @NotNull
+    @Past(message = "La data di nascita deve essere nel passato")
     private LocalDate birth;
 
-    private String image;
+    @OneToOne(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Image image;
 
     
+    @PastOrPresent(message = "La data di morte deve essere nel passato o presente")
     private LocalDate death;
 
-    @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    private List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -58,6 +70,14 @@ public class Author {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public LocalDate getBirth() {
@@ -84,12 +104,12 @@ public class Author {
         this.books = books;
     }
 
-    public String getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage(Image image) {
+        this.image= image;
     }
 
 
@@ -135,6 +155,13 @@ public class Author {
             return false;
         return true;
     }
-
+    public void addBook(Book book) {
+        if (book != null && !this.books.contains(book)) {
+            this.books.add(book);
+            if (!book.getAuthors().contains(this)) {
+                book.getAuthors().add(this);
+            }
+        }
+    }
 
 }
