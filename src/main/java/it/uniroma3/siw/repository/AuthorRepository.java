@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Author;
-import it.uniroma3.siw.model.Book;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 

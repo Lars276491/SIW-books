@@ -1,9 +1,6 @@
 package it.uniroma3.siw.service;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Author;
-import it.uniroma3.siw.model.Book;
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.repository.AuthorRepository;
 
@@ -25,8 +21,6 @@ public class AuthorService {
     private AuthorRepository authorRepository;
     @Autowired
     private ImageStorageService imageStorageService;
-    @Autowired
-    private BookService bookService;
 
 
 
