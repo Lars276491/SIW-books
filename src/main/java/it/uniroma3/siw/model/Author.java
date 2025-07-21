@@ -1,6 +1,7 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -33,8 +34,6 @@ public class Author {
     @NotBlank
     private String nationality;
 
-    
-
     @NotNull
     @Past(message = "La data di nascita deve essere nel passato")
     private LocalDate birth;
@@ -46,8 +45,8 @@ public class Author {
     @PastOrPresent(message = "La data di morte deve essere nel passato o presente")
     private LocalDate death;
 
-    @ManyToMany(mappedBy = "authors")
-    private List<Book> books;
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    private List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -156,6 +155,13 @@ public class Author {
             return false;
         return true;
     }
-
+    public void addBook(Book book) {
+        if (book != null && !this.books.contains(book)) {
+            this.books.add(book);
+            if (!book.getAuthors().contains(this)) {
+                book.getAuthors().add(this);
+            }
+        }
+    }
 
 }

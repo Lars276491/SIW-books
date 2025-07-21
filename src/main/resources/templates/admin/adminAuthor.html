@@ -38,10 +38,34 @@
                 <button type="submit" class="link-button">Elimina</button>
             </form>
         </section>
+        <!-- Sezione libri -->
+        <div class="books-section" th:if="${author.books != null and #lists.size(author.books) > 0}">
+            <h3>Libri scritti:</h3>
+            <div class="books-flex">
+            <div class="book-card" th:each="book : ${author.books}">
+                <a th:href="@{'/admin/book' + '/'+ ${book.id}}">
+                    <!-- Mostra la prima immagine se esiste -->
+                    <img th:if="${book.images != null and !book.images.isEmpty()}"
+                        th:src="@{'/uploads/' + ${book.images[0].path}}"
+                        alt="Copertina di [[${book.title}]]"
+                        class="book-image">
 
-        <div class="author" th:unless="${author}">
-            <p>Autore non trovato.</p>
+                    <!-- Immagine placeholder se nessuna immagine è presente -->
+                    <img th:if="${book.images == null or book.images.isEmpty()}"
+                        src="/images/default_book.jpg"
+                        alt="Nessuna immagine disponibile"
+                        class="book-image">
+
+                    <h2 th:text="${book.title}">Titolo del libro</h2>
+                    <p th:text="${book.year}">Anno di pubblicazione</p>
+                </a>
+            </div>
+            </div>
         </div>
+        <div class="books-section" th:if="${#lists.isEmpty(author.books)}">
+            <p>L'autore non ha ancora libri associati.</p>
+        </div>
+
     </main>
     <div class="author" th:unless="${author}">
             <p>Autore non trovato.</p>

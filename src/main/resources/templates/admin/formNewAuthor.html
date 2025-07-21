@@ -78,6 +78,18 @@
                     </label>
                     </div>
                 </div>
+                <div th:if="${allBooks != null and #lists.size(allBooks) > 0}" class="input-group">
+                    <label>Libri associati:</label>
+                    <span>
+                        <select multiple name="bookIds" id="bookIds"  class="styled-select">
+                            <option th:each="book : ${allBooks}"
+                                    th:value="${book.id}"
+                                    th:text="${book.title}"
+                                    th:selected="${author.books != null} ? ${author.books.contains(book)} : false">
+                            </option>
+                        </select>
+                    </span>
+                </div>
 
                 <button type="submit">Aggiungi Autore</button>
             </form>

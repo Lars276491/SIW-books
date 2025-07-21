@@ -202,3 +202,39 @@ button[type="button"]:hover {
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
+
+.styled-select {
+  width: 100%;
+  min-height: 120px; /* per mostrare bene più opzioni */
+  padding: 0.8rem 1rem;
+  background-color: transparent;
+  color: white;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  /* per evitare che si restringa troppo */
+  box-sizing: border-box;
+}
+
+.styled-select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Opzione testo bianco, anche se non sempre applicabile in tutti i browser */
+.styled-select option {
+  background-color: transparent;
+  color: white;
+  padding: 0.3rem 0.5rem;
+}
+
+/* Se vuoi il bordo più scuro quando si passa sopra */
+.styled-select:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}

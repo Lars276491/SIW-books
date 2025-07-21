@@ -66,7 +66,7 @@ body {
   padding: 2rem 4rem;
   background-color: rgba(0, 0, 0, 0.6);
   width: 100vw;
-  min-height: 100vh;
+  min-height: auto;
 }
 
 .author h2 {
@@ -120,4 +120,47 @@ a:hover {
 .link-button:hover {
   color: #ffd700;
   text-decoration: underline #ffd700;
+}
+.books-section {
+  padding: 1rem 4rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+.books-flex {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.books-flex::-webkit-scrollbar {
+  height: 6px;
+}
+.books-flex::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 3px;
+}
+
+.book-card {
+  flex: 0 0 auto;
+  width: 150px;
+  text-align: center;
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+.book-card img:hover {
+  transform: scale(1.05);
+}
+
+.book-card p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ffd700;
 }

@@ -13,7 +13,7 @@ public interface BookRepository extends CrudRepository<Book, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO book_author VALUES (:bookId, :authorId)", nativeQuery = true)
+    @Query(value = "INSERT INTO author_book VALUES (:bookId, :authorId)", nativeQuery = true)
     public void addAuthorToBook(Long bookId, Long authorId);
 
     public boolean existsByTitleAndYear(String title, Integer year);
