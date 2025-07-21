@@ -45,39 +45,14 @@ public class AuthorController {
         model.addAttribute("author", author);
         return "author";
     }
-
-    @GetMapping("/formNewAuthor")
-    public String getFormNewAuthor(Model model) {
-        model.addAttribute("author", new Author());
-        return "formNewAuthor";
+    @GetMapping("/author/search")
+    public String searchAuthors(@RequestParam("query") String query, Model model) {
+        List<Author> authors = authorService.findByNameOrSurname(query);
+        model.addAttribute("authors", authors);
+        return "authors"; // Nome del template HTML
     }
 
-    /*@PostMapping("/author")
-    public String newAuthor(
-                            @Valid @ModelAttribute Author author,
-                            BindingResult bindingResult,
-                            @RequestParam(value = "bookIds", required = false) List<Long> bookIds,
-                            Model model) {
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-            return "formNewAuthor";
-        } else {
-            if (bookIds != null) {
-                 List<Book> books = bookService.findAllById(bookIds);
-                author.setBooks(books);
-                // Aggiorna la relazione bidirezionale
-                for (Book book : books) {
-                    book.getAuthors().add(author);
-                    bookService.save(book); // salva il libro aggiornato
-                }   
-            } else {
-                author.setBooks(null);
-            }
-            this.authorService.save(author);
-            model.addAttribute("author", author);
-            return "redirect:/author" + author.getId();
-        }
-    }*/
+
     
 
 

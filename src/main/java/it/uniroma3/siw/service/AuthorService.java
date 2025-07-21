@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,10 @@ public class AuthorService {
     public Optional<Author> findByIdWithBooks(Long id) {
         Author author = authorRepository.findByIdWithBooks(id);
         return Optional.ofNullable(author);
+    }
+
+    public List<Author> findByNameOrSurname(String query) {
+        return authorRepository.findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(query, query);
     }
 
 }

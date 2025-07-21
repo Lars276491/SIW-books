@@ -1,10 +1,13 @@
 package it.uniroma3.siw.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import it.uniroma3.siw.model.Author;
+import it.uniroma3.siw.model.Book;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
@@ -22,4 +25,5 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
 	@Query("select a from Author a left join fetch a.books where a.id = :id")
 	Author findByIdWithBooks(@Param("id") Long id);
 
+	List<Author> findByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(String name, String surname);
 }

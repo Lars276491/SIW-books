@@ -33,4 +33,6 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     @Query("select b from Book b left join fetch b.authors where b.id = :id")
     Book findByIdWithAuthors(@Param("id") Long id);
 
+    List<Book> findByTitleContainingIgnoreCase(String title);
+
 }

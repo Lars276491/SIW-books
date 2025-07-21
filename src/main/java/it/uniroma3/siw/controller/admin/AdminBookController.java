@@ -203,18 +203,6 @@ public class AdminBookController {
 
     
 
-   /* @GetMapping("/deleteAutorePerLibro/{authorId}/{bookId}")
-    public String deleteAutorePerLibro(@PathVariable Long authorId, @PathVariable Long bookId, Model model) {
-        Book book = this.bookService.findById(bookId);
-        Author author = this.authorService.findById(authorId);
-        List<Author> authors = book.getAuthors();
-        authors.remove(author);
-        this.bookService.save(book);
-
-        List<Author> authorsToAdd = authorsToAdd(bookId);
-        model.addAttribute("book", book);
-        model.addAttribute("autoriLibro", authorsToAdd);
-        return "admin/autorePerLibro";
-    }*/
+   
 
 }

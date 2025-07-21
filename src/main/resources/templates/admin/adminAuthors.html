@@ -22,6 +22,18 @@
         </nav>
     </header>
     <main class="content">
+        <form method="get" th:action="@{/author/search}" class="search-bar">
+            <input list="author-suggestions" name="query" placeholder="Cerca per titolo..." autocomplete="off" required id="searchInput">
+            <datalist id="author-suggestions">
+                <option th:each="a : ${authors}"
+                        th:value="${a.name +' '+ a.surname}">[[${a.name +' '+ a.surname}]]
+                </option>
+            </datalist>
+            <button type="submit">Cerca</button>
+        </form>
+        <div id="no-author" th:if="${authors != null and authors.isEmpty()}">
+            <p>Nessun autore trovato per la tua ricerca.</p>
+        </div>
         <section class="description">
             <h1>Lista degli Autori</h1>
             <p class="summary">

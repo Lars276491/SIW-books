@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -45,19 +47,13 @@ public class BookController {
         model.addAttribute("reviews", reviewService.findByBook(book)); 
         return "book";
     }
-
-    @PostMapping("/book")
-    public String newBook(@Valid @ModelAttribute Book book,BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-            return "formNewBook";
-        }
-        else{
-            this.bookService.save(book);
-            model.addAttribute("book", book);
-            return "redirect:/book" + book.getId();
-        }
+    @GetMapping("/book/search")
+    public String searchBooks(@RequestParam("query") String query, Model model) {
+        List<Book> books = bookService.findByTitleContainingIgnoreCase(query);
+        model.addAttribute("books", books);
+        return "books"; // Nome del template HTML
     }
+
 
     
     

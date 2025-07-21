@@ -48,11 +48,26 @@
                 <p th:text="${review.text}">Testo della recensione</p>
                 <p><em>Utente:</em> <span th:text="${review.user.name}">Mario Rossi</span></p>
             </div>
+            <div th:if="${#lists.isEmpty(reviews)}">
+                <p>Non ci sono ancora recensioni per questo libro.</p>
+            </div>
         </section>
+        <div class="authors-section" th:if="${book.authors != null and #lists.size(book.authors) > 0}">
+                    <h3>Autori del libro:</h3>
+                    <div class="authors-flex">
+                        <div class="author-card" th:each="author : ${book.authors}">
+                            <a th:href="@{'/user/author' + '/'+ ${author.id}}">
+                                <div th:if="${author.image != null}">
+                                    <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore"/>
+                                </div>
 
-        <div th:if="${#lists.isEmpty(reviews)}">
-            <p>Non ci sono ancora recensioni per questo libro.</p>
-        </div>
+                                <h4 th:text="${author.name + ' ' + author.surname}">Nome Cognome</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+        
     </main>
 
 </body>

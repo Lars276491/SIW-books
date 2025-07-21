@@ -101,6 +101,11 @@ public class BookService {
         return this.bookRepository.save(book); // aggiorna book + immagini (se in cascade)
     }
 
+    public List<Book> findByTitleContainingIgnoreCase(String query) {
+        return bookRepository.findByTitleContainingIgnoreCase(query);
+    }
+
+
 
 
 
