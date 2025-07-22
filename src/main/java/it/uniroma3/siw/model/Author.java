@@ -45,7 +45,7 @@ public class Author {
     @PastOrPresent(message = "La data di morte deve essere nel passato o presente")
     private LocalDate death;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Book> books = new ArrayList<>();
 
     public Long getId() {

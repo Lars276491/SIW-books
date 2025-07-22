@@ -66,7 +66,7 @@ body {
   padding: 2rem 4rem;
   background-color: rgba(0, 0, 0, 0.6);
   width: 100vw;
-  min-height: auto;
+  min-height: 100vh;
 }
 
 .author h2 {
@@ -122,8 +122,7 @@ a:hover {
   text-decoration: underline #ffd700;
 }
 .books-section {
-  padding: 1rem 4rem;
-  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1rem 0;
   color: white;
 }
 

@@ -65,6 +65,13 @@ public class AdminAuthorController {
         }
         Author author = authorOpt.get();
         
+        // Rimuovi le associazioni da entrambi i lati
+        for (Book book : author.getBooks()) {
+            book.getAuthors().remove(author); // rimuovi autore dalla lista degli autori del libro
+        }
+        // Rimuovi le associazioni con i libri
+        author.getBooks().clear(); 
+        authorService.save(author); // salva per aggiornare la relazione
         if(author.getImage() != null) {
             String imagePath = author.getImage().getPath();
             java.io.File imageFile = new java.io.File("." + imagePath); // Assicurati che il path sia corretto
