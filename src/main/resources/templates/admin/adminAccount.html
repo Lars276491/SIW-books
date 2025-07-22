@@ -36,19 +36,27 @@
         </section>
             <div class="user-list">
                 <h3>Utenti Registrati</h3>
-                <table>
+                <div th:if="${error}">
+                    <p th:text="${error}" style="color:red;"></p>
+                 </div>
+
+                <table border="1">
                     <thead>
                         <tr>
                             <th>Username</th>
                             <th>Ruolo</th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="user : ${allCredentials}">
+                        <tr th:each="cred : ${utenti}">
+                            <td th:text="${cred.username}">username</td>
+                            <td th:text="${cred.role}">ruolo</td>
                             <td>
-                                <a th:href="@{'/admin/account/' + ${user.id}}" th:text="${user.username}">username</a>
+                                <form th:action="@{'/admin/deleteUser/' + ${cred.id}}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo utente?');">
+                                    <button type="submit">Elimina</button>
+                                </form>
                             </td>
-                            <td th:text="${user.role}">Ruolo</td>
                         </tr>
                     </tbody>
                 </table>

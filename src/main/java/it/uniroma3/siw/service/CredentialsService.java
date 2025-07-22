@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.uniroma3.siw.model.Credentials;
-import it.uniroma3.siw.repository.CredentialsRepository;
+import it.uniroma3.siw.model.*;
+import it.uniroma3.siw.repository.*;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,6 +29,8 @@ public class CredentialsService {
     protected CredentialsRepository credentialsRepository;
     @Autowired
     protected AuthenticationManager authenticationManager;
+    @Autowired
+    protected UserRepository userRepository;
 
     public void autoLogin(String username, String rawPassword) {
         UsernamePasswordAuthenticationToken token =
@@ -82,9 +84,15 @@ public class CredentialsService {
     public void deleteCredentials(Long id) {
         Credentials credentials = this.getCredentials(id);
         if (credentials != null) {
-            this.credentialsRepository.delete(credentials);
+            User user = credentials.getUser();
+            if (user != null) {
+                user.setCredentials(null);
+                userRepository.delete(user);
+            }
+            credentialsRepository.delete(credentials);
         }
     }
+
 
     @Transactional
     public void updateCredentials(Credentials credentials) {

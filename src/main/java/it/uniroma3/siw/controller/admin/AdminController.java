@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 
+
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -35,8 +37,10 @@ public class AdminController {
         model.addAttribute("credentials", credentials);
 
         if(Credentials.ADMIN_ROLE.equals(credentials.getRole())) {
-            List<Credentials> allCredentials = (List<Credentials>) credentialsService.findAll();
-            model.addAttribute("allCredentials", allCredentials);
+            List<Credentials> utenti = (List<Credentials>) credentialsService.findAll();
+            //rimuovi l'admin dalla lista degli utenti
+            utenti.removeIf(c -> c.getId().equals(credentials.getId()));
+            model.addAttribute("utenti", utenti);
         }
 
         return "admin/adminAccount";
@@ -67,25 +71,29 @@ public class AdminController {
  
     
     //ottiene l'utente registrato 
-    @GetMapping("/account/{id}")
-    public String getUser(@PathVariable("id") Long id, Model model) {
-        Credentials credentials = credentialsService.getCredentials(id);
-        if (credentials != null) {
-            model.addAttribute("credentials", credentials);
-            return "admin/user";
-        }
-        return "redirect: /admin/account";
-    }
     
     @PostMapping("/deleteAccount/{id}")
     public String deleteAccount(@PathVariable("id") Long id, Model model) {
         Credentials credentials = credentialsService.getCredentials(id);
         if (credentials != null) {
             credentialsService.deleteCredentials(id);
-            return "redirect:/admin/account";
+            return "redirect:/logout";  // dopo eliminazione logout o redirect appropriato
         }
         model.addAttribute("error", "Utente non trovato");
         return "error";
     }
+
+    @PostMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Long id, Model model) {
+        Credentials credentials = credentialsService.getCredentials(id);
+        if (credentials == null || !credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+            model.addAttribute("error", "Utente non trovato o non è un utente normale");
+            return "redirect:/admin/account";
+        }
+        credentialsService.deleteCredentials(id);
+        
+        return "redirect:/admin/account";  // dopo eliminazione torna alla pagina degli account
+    }
+    
 
 }
