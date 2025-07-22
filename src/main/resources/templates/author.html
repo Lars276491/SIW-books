@@ -29,16 +29,7 @@
             <div th:if="${author.image != null}">
                 <img th:src="@{'/uploads/' + ${author.image.path}}" alt="Immagine Autore" width="13%" />
             </div>
-        </section>
-
-        <div class="author" th:unless="${author}">
-            <p>Autore non trovato.</p>
-        </div>
-    </main>
-    <div class="author" th:unless="${author}">
-            <p>Autore non trovato.</p>
-    </div>
-    <!-- Sezione libri -->
+            <!-- Sezione libri -->
         <div class="books-section" th:if="${author.books != null and #lists.size(author.books) > 0}">
             <h3>Libri scritti:</h3>
             <div class="books-flex">
@@ -65,5 +56,15 @@
         <div class="books-section" th:if="${#lists.isEmpty(author.books)}">
             <p>L'autore non ha ancora libri associati.</p>
         </div>
+        </section>
+
+        <div class="author" th:unless="${author}">
+            <p>Autore non trovato.</p>
+        </div>
+    </main>
+    <div class="author" th:unless="${author}">
+            <p>Autore non trovato.</p>
+    </div>
+    
 </body>
 </html>
