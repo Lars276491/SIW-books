@@ -42,6 +42,44 @@ public class UserController {
     @Autowired
     private ReviewService reviewService;
 
+
+    @GetMapping("/account")
+    public String getAccount(Model model) {
+        Credentials credentials = credentialsService.getCurrentCredentials();
+        model.addAttribute("credentials", credentials);
+        return "user/userAccount";
+    }
+    @GetMapping("/modificaAccount")
+    public String getModificaAccount(Model model) {
+        Credentials credentials = credentialsService.getCurrentCredentials();
+        model.addAttribute("credentials", credentials);
+        return "user/userModificaAccount";
+    }
+
+    @PostMapping("/account")
+    public String updateAccount(@ModelAttribute("credentials") Credentials updatedCredentials, Model model) {
+        Credentials currentCredentials = credentialsService.getCurrentCredentials();
+        if (currentCredentials == null) {
+            model.addAttribute("error", "Credenziali non trovate");
+            return "redirect:/user/account"; // Se non esiste, reindirizza alla pagina dell'account
+        }
+        // Aggiorna le credenziali con i nuovi dati
+        credentialsService.updateCredentials(updatedCredentials);
+        return "redirect:/user/account";
+    }
+
+
+     @PostMapping("/deleteAccount/{id}")
+    public String deleteAccount(@PathVariable("id") Long id, Model model) {
+        Credentials credentials = credentialsService.getCredentials(id);
+        if (credentials != null) {
+            credentialsService.deleteCredentials(id);
+            return "redirect:/logout";  // dopo eliminazione logout o redirect appropriato
+        }
+        model.addAttribute("error", "Utente non trovato");
+        return "error";
+    }
+
     /***********************************************************************/
     /**********************METODI PER BOOK**********************************/
     /***********************************************************************/
