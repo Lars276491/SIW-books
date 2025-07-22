@@ -32,8 +32,6 @@ public class User {
     
     private LocalDate birth;
 
-	private String imagePath;
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "credentials_id")
 	private Credentials credentials;
@@ -51,13 +49,6 @@ public class User {
 		this.review = review;
 	}
 
-	public String getImagePath() {
-		return imagePath;
-	}
-
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
-	}
 
 	public LocalDate getBirth() {
         return birth;
