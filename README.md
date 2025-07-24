@@ -1,6 +1,6 @@
 # 📚 SIW-Books
 
-**SIW-Books** è un'applicazione web realizzata come progetto accademico per il corso di **Sviluppo di Applicazioni Web (SIW)** presso l'Università degli Studi di Roma Tre.
+**SIW-Books** è un'applicazione web realizzata come progetto accademico per il corso di **Sistemi informativi su Web (SIW)** presso l'Università degli Studi di Roma Tre.
 
 L'applicazione permette agli utenti di:
 
