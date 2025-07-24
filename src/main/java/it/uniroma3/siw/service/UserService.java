@@ -70,4 +70,17 @@ public class UserService {
         return userRepository.findByCredentialsUsername(username);
     }
 
+    @Transactional
+    public void updateUser(User user){
+        Optional<User> optUser =userRepository.findById(user.getId());
+        User existingUser = optUser.get();
+        existingUser.setName(user.getName());
+        existingUser.setSurname(user.getSurname());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setBirth(user.getBirth());
+
+        userRepository.save(existingUser);
+
+    }
+
 }
