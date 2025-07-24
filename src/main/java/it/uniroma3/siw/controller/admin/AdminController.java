@@ -24,7 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AdminController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CredentialsService credentialsService;
+
+    AdminController(UserService userService) {
+        this.userService = userService;
+    }
     
     @GetMapping("/account")
     public String getAccount(Model model) {
@@ -62,7 +69,7 @@ public class AdminController {
             model.addAttribute("error", "Accesso non autorizzato");
             return "redirect:/admin/account";
         }
-        
+        userService.updateUser(updatedCredentials.getUser());
         credentialsService.updateCredentials(updatedCredentials);
         // 🔄 Riautentica l'utente con le nuove credenziali
         credentialsService.autoLogin(updatedCredentials.getUsername(), updatedCredentials.getPassword());

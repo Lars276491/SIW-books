@@ -14,6 +14,7 @@ import it.uniroma3.siw.service.AuthorService;
 import it.uniroma3.siw.service.BookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.ReviewService;
+import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.model.Review;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.Author;
@@ -41,6 +42,8 @@ public class UserController {
     private BookService bookService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/account")
@@ -67,6 +70,7 @@ public class UserController {
             return "redirect:/user/account"; // Se non esiste, reindirizza alla pagina dell'account
         }
         // Aggiorna le credenziali con i nuovi dati
+        userService.updateUser(updatedCredentials.getUser());
         credentialsService.updateCredentials(updatedCredentials);
         // 🔄 Riautentica l'utente con le nuove credenziali
         credentialsService.autoLogin(updatedCredentials.getUsername(), updatedCredentials.getPassword());
